@@ -98,6 +98,16 @@ export const SiteConfigSchema = z.object({
   staging: z.boolean(),
   /** Local/dev build: skips the production-origin/operator/email requirement entirely. */
   isLocalBuild: z.boolean(),
+  /**
+   * Google AdSense publisher ID (e.g. "ca-pub-xxxxxxxxxxxxxxxx"). Optional and unset by
+   * default — only present once the operator has deliberately opted into AdSense for a given
+   * build (e.g. for site-ownership verification). When set, Layout.astro includes Google's
+   * Auto Ads script on every page, which can begin serving ads automatically once the site is
+   * approved. This does not imply a consent-management flow or an updated privacy disclosure
+   * exists — those are the operator's responsibility to add before ads should actually serve
+   * to EEA/UK visitors under Google's own policies.
+   */
+  adsenseClientId: z.string().optional(),
 });
 
 export type SiteConfig = z.infer<typeof SiteConfigSchema>;

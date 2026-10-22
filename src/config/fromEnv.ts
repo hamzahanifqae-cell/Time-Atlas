@@ -17,6 +17,7 @@ export function buildSiteConfig(env: EnvLike, opts: { isLocalBuild?: boolean } =
     contactEmail: (env.PUBLIC_CONTACT_EMAIL as string) || undefined,
     staging: env.PUBLIC_STAGING === "true",
     isLocalBuild: Boolean(opts.isLocalBuild ?? (env.PUBLIC_ALLOW_LOCAL_BUILD === "true")),
+    adsenseClientId: (env.PUBLIC_ADSENSE_CLIENT_ID as string) || undefined,
   };
   return SiteConfigSchema.parse(raw);
 }
