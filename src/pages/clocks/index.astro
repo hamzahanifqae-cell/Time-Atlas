@@ -1,0 +1,20 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import WorldClocksBrowser from "../../components/clocks/WorldClocksBrowser.tsx";
+---
+
+<Layout
+  title="Browse world clocks"
+  description="Browse every country TimeAtlas covers and see local times for its cities, without using the 3D globe."
+>
+  <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">Browse world clocks</h1>
+    <p class="mt-2 max-w-2xl text-paper-400">
+      Every city and country in TimeAtlas, searchable and browsable here without the 3D
+      globe.
+    </p>
+    <div class="mt-6">
+      <WorldClocksBrowser client:load />
+    </div>
+  </div>
+</Layout>

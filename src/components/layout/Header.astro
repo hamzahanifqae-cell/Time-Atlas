@@ -1,0 +1,125 @@
+---
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/clocks", label: "World Clocks" },
+];
+
+const currentPath = Astro.url.pathname;
+function isActive(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="atlas-header border-b border-navy-700 bg-navy-950/90 backdrop-blur-sm sticky top-0 z-40">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+    <a href="/" class="flex items-center gap-2 text-paper-100 no-underline">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="14" cy="14" r="12" stroke="currentColor" stroke-width="1.5" class="text-cyan-500" />
+        <path
+          d="M14 6.5v8l5.5 3.2"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-amber-400"
+        />
+        <ellipse cx="14" cy="14" rx="12" ry="5" stroke="currentColor" stroke-width="1" class="text-cyan-600/50" />
+      </svg>
+      <span class="text-lg font-semibold tracking-tight">TimeAtlas</span>
+    </a>
+
+    <nav aria-label="Primary" class="hidden md:block">
+      <ul class="flex items-center gap-1 text-sm">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                class:list={[
+                  "rounded-md px-3 py-2 text-paper-200 no-underline hover:bg-navy-800 hover:text-paper-100 transition-colors",
+                  { "bg-navy-800 text-paper-100": isActive(item.href) },
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch color theme">
+      <svg class="theme-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+      <svg class="theme-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4a8.5 8.5 0 1 0 11.5 11.5Z"/></svg>
+      <span class="theme-label">Light mode</span>
+    </button>
+    <button
+      id="nav-toggle"
+      type="button"
+      class="md:hidden rounded-md border border-navy-600 p-2 text-paper-200"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span class="sr-only">Toggle menu</span>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" aria-label="Primary (mobile)" class="hidden md:hidden border-t border-navy-700 px-4 py-2">
+    <ul class="flex flex-col gap-1 text-sm">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              class="block rounded-md px-3 py-2 text-paper-200 no-underline hover:bg-navy-800 hover:text-paper-100"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const themeButton = document.getElementById('theme-toggle');
+  const syncThemeButton = () => {
+    const isDark = document.documentElement.dataset.theme !== 'light';
+    themeButton?.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} mode`);
+    const label = themeButton?.querySelector('.theme-label');
+    if (label) label.textContent = isDark ? 'Light mode' : 'Dark mode';
+  };
+  themeButton?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('timeatlas-theme', next); } catch { /* Theme still works without storage. */ }
+    syncThemeButton();
+  });
+  syncThemeButton();
+
+  const toggle = document.getElementById("nav-toggle");
+  const menu = document.getElementById("mobile-nav");
+  if (toggle && menu) {
+    toggle.addEventListener("click", () => {
+      const expanded = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!expanded));
+      menu.classList.toggle("hidden");
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        toggle.setAttribute("aria-expanded", "false");
+        menu.classList.add("hidden");
+        toggle.focus();
+      }
+    });
+  }
+</script>

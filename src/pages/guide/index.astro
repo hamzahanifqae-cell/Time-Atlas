@@ -1,0 +1,169 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "A guide to time zones and daylight saving",
+  description:
+    "How time zones, UTC offsets, and daylight saving actually work, and the specific limitations of TimeAtlas's clocks, search, and globe.",
+};
+---
+
+<Layout
+  title="Guide to time zones and daylight saving"
+  description="How time zones, UTC offsets, and daylight saving actually work — and the specific limitations of TimeAtlas's clocks, search, and globe."
+  structuredData={structuredData}
+>
+  <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">
+      A guide to time zones and daylight saving
+    </h1>
+    <p class="mt-3 text-paper-400">
+      This is a plain explanation of how clocks around the world actually work, and an honest
+      account of what TimeAtlas can and can't promise.
+    </p>
+
+    <nav aria-label="On this page" class="mt-6 rounded-lg border border-navy-700 bg-navy-800/40 p-4 text-sm">
+      <p class="font-medium text-paper-200">On this page</p>
+      <ul class="mt-2 grid gap-1 text-paper-400 sm:grid-cols-2">
+        <li><a class="hover:text-paper-100 hover:underline" href="#time-zones">What a time zone actually is</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#utc">UTC and offsets</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#half-quarter">Half- and quarter-hour zones</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#dst">Daylight saving time</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#multi-zone">Countries with more than one time zone</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#accuracy">How accurate are TimeAtlas's clocks?</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#coverage">Dataset coverage</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#globe">What the globe does and doesn't show</a></li>
+      </ul>
+    </nav>
+
+    <section class="prose-section mt-8">
+      <h2 id="time-zones" class="text-xl font-semibold text-paper-100">What a time zone actually is</h2>
+      <p class="mt-2 text-paper-300">
+        A time zone is a region that agrees to use the same clock. It isn't a strip of
+        longitude — political borders, not meridians, decide where one zone ends and the next
+        begins, which is why zone boundaries zigzag along country and state lines rather than
+        running in straight vertical bands. The rules for a given zone — its offset from UTC,
+        whether and when it observes daylight saving — are maintained by the
+        <a
+          href="https://www.iana.org/time-zones"
+          class="underline hover:text-paper-100"
+          rel="noopener noreferrer"
+          target="_blank">IANA Time Zone Database</a
+        >, usually called tzdata. Every clock on TimeAtlas is computed from an IANA zone
+        identifier (like <code class="tabular">Europe/Berlin</code> or
+        <code class="tabular">America/Argentina/Cordoba</code>), not a hand-entered offset, so
+        it automatically picks up the real historical and current rules for that place.
+      </p>
+
+      <h2 id="utc" class="mt-8 text-xl font-semibold text-paper-100">UTC and offsets</h2>
+      <p class="mt-2 text-paper-300">
+        UTC (Coordinated Universal Time) is the reference every zone is defined relative to.
+        "UTC+5:30" means local time is five and a half hours ahead of UTC at that instant.
+        Offsets aren't fixed forever: a zone's offset can change when it starts or ends
+        daylight saving, and — far less often — when a country changes its standard time by
+        law. TimeAtlas always computes a zone's offset for the specific instant being shown,
+        never a single constant baked in ahead of time.
+      </p>
+
+      <h2 id="half-quarter" class="mt-8 text-xl font-semibold text-paper-100">
+        Half- and quarter-hour zones
+      </h2>
+      <p class="mt-2 text-paper-300">
+        Most zones sit on a whole-hour offset, but not all of them. India and Sri Lanka use
+        UTC+5:30; Newfoundland uses UTC&minus;3:30; Nepal uses UTC+5:45; parts of Australia use
+        UTC+9:30 or UTC+8:45. These aren't rounding artifacts — they're real, deliberately
+        chosen offsets, and TimeAtlas displays them exactly (down to the minute) rather than
+        rounding to the nearest hour.
+      </p>
+
+      <h2 id="dst" class="mt-8 text-xl font-semibold text-paper-100">Daylight saving time</h2>
+      <p class="mt-2 text-paper-300">
+        Daylight saving time (DST) shifts clocks forward for part of the year, usually to
+        align waking hours with daylight in summer. Not every country observes it — most of
+        Asia and Africa don't — and the ones that do don't all switch on the same dates, or
+        even in the same direction at the same time of year: the Southern Hemisphere's
+        "summer" DST period falls in what's winter north of the equator.
+      </p>
+      <p class="mt-2 text-paper-300">
+        TimeAtlas determines whether a given instant falls in daylight saving by finding the
+        zone's real nearest clock-offset change before and after that instant and comparing
+        them — the daylight-saving offset is always the larger of the two — rather than by
+        checking a couple of fixed sample dates. If a zone has had no offset change in the
+        past or next year (true for zones that don't use DST at all), we show the UTC offset
+        without a daylight-saving claim either way, instead of guessing.
+      </p>
+
+      <h2 id="multi-zone" class="mt-8 text-xl font-semibold text-paper-100">
+        Countries with more than one time zone
+      </h2>
+      <p class="mt-2 text-paper-300">
+        Large countries — Russia, the United States, Australia, Brazil, Indonesia, Canada,
+        and dozens more — span several time zones. There is no single "Russia time" or "USA
+        time." When you select one of these countries on TimeAtlas, we never show you one
+        city's clock as if it spoke for the whole country: we list its zones and let you pick
+        a specific city in the one you care about.
+      </p>
+
+      <h2 id="accuracy" class="mt-8 text-xl font-semibold text-paper-100">
+        How accurate are TimeAtlas's clocks?
+      </h2>
+      <p class="mt-2 text-paper-300">
+        The "Live" clock on TimeAtlas reads your device's own system clock — it is not
+        synchronized against an atomic clock or a time server, and it is not independently
+        verified in any way. If your device's clock is wrong, every "Live" time on this site
+        will be off by the same amount. We resynchronize from the system clock every second,
+        and immediately again whenever the tab becomes visible or the device wakes from sleep,
+        so the display won't drift or freeze — but it is only ever as accurate as your device.
+      </p>
+      <p class="mt-2 text-paper-300">
+        Time zone and daylight-saving rules are set by law and occasionally change — a
+        country can adopt, abolish, or shift its daylight-saving schedule with real-world
+        notice measured in months, not years. TimeAtlas relies on the time zone database
+        built into your browser (via the Intl JavaScript API), which is updated as part of
+        normal browser updates; a rule change that's very recent may not be reflected until
+        your browser updates its own copy of that database.
+      </p>
+
+      <h2 id="coverage" class="mt-8 text-xl font-semibold text-paper-100">Dataset coverage</h2>
+      <p class="mt-2 text-paper-300">
+        TimeAtlas's city search covers every city with a GeoNames population record of
+        15,000 or more, plus every national capital regardless of size, plus at least one
+        representative city for every (country, time zone) combination that occurs in that
+        data, plus the largest known city for any remaining country with no other entry. That
+        is a broad, genuinely useful set — a little over 12,000 places — but it is
+        <strong>not</strong> a complete list of the world's settlements, and it is not a
+        gazetteer. If a small town isn't in our search, try the nearest larger city or the
+        country itself. A handful of uninhabited or near-uninhabited territories (Antarctica,
+        Bouvet Island, the British Indian Ocean Territory, Tokelau, and the U.S. Minor
+        Outlying Islands) have no permanent population for us to list a city for at all; we
+        show their time zone(s) without a city.
+      </p>
+      <p class="mt-2 text-paper-300">
+        Very rarely, a source record's time zone assignment is itself slightly off (for
+        example, a town very close to a time-zone boundary). We correct specific, confirmed
+        cases like this by pointing to the right IANA zone identifier for that place — never
+        by inventing a fixed offset. See
+        <a href="/about#data-sources" class="underline hover:text-paper-100">data sources</a>
+        for exactly where this data comes from and its license.
+      </p>
+
+      <h2 id="globe" class="mt-8 text-xl font-semibold text-paper-100">
+        What the globe does and doesn't show
+      </h2>
+      <p class="mt-2 text-paper-300">
+        The interactive globe is a simplified 3D model, not satellite imagery or a live feed
+        of Earth. Its day/night shading is an approximation of where the sun is overhead,
+        calculated from standard low-precision solar-position formulas — good for an
+        intuitive sense of "it's night there right now," not a substitute for a real sunrise/
+        sunset calculator. Country borders are simplified for performance and come from
+        Natural Earth's public-domain dataset, which documents its own conventions for
+        disputed and de facto boundaries; TimeAtlas draws them as-is and does not intend them
+        as a political statement. If your browser or device can't run WebGL, or the 3D
+        context is lost mid-session, TimeAtlas falls back to a flat 2D map — every time,
+        search, and comparison feature keeps working either way.
+      </p>
+    </section>
+  </article>
+</Layout>

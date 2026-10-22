@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Experience from "../components/Experience.tsx";
+import { siteOrigin } from "../config/site";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "TimeAtlas",
+  url: siteOrigin,
+  description: "Search any city or country, compare world times, and explore an interactive 3D Earth.",
+};
+---
+
+<Layout
+  title="TimeAtlas"
+  description="Search any city or country, compare world times, and explore an interactive 3D Earth. Explore the world. Find your time."
+  structuredData={structuredData}
+>
+  <div class="atlas-home mx-auto max-w-6xl px-4 py-8 sm:px-6">
+    <div class="atlas-intro mb-8"><p class="atlas-eyebrow"><span></span> A WORLD OF TIME, IN ONE PLACE</p>
+      <h1 class="text-3xl font-semibold tracking-tight text-paper-100 sm:text-4xl">
+        The world moves.<br /><span class="intro-accent">Stay in sync.</span>
+      </h1>
+    </div>
+    <Experience client:load />
+  </div>
+</Layout>

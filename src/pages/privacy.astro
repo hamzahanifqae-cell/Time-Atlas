@@ -1,0 +1,71 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { siteConfig } from "../config/site";
+const lastUpdated = "2026-10-21";
+---
+
+<Layout title="Privacy" description="How TimeAtlas handles data: what's stored locally in your browser, and what a typical hosting log records.">
+  <article class="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">Privacy</h1>
+
+    <p class="mt-3 text-sm text-paper-600">Last updated: {lastUpdated}</p>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">What TimeAtlas stores, and where</h2>
+      <p class="mt-2 text-paper-300">
+        TimeAtlas has no user accounts and no server-side database. Your preferences — saved
+        comparison cities, your 12-hour/24-hour choice, and whether
+        the globe auto-rotates — are saved only in your own browser's local storage, on your
+        own device. We never see this data, it is never sent to any server, and it never
+        leaves your device unless you clear your browser data yourself. If local storage is
+        unavailable or full, TimeAtlas simply doesn't save your preferences for next time;
+        nothing is lost beyond that.
+      </p>
+      <p class="mt-2 text-paper-300">
+        None of this data is sensitive in nature (it's clock settings and city names), and
+        TimeAtlas does not ask for, or store, anything that would be.
+      </p>
+    </section>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">Cookies and analytics</h2>
+      <p class="mt-2 text-paper-300">
+        TimeAtlas does not set tracking cookies and does not run any analytics or advertising
+        script. (See the <a href="/guide" class="underline hover:text-paper-100">guide</a> and
+        the project's AdSense-preparation notes for what would change if that's ever added —
+        it isn't live today.)
+      </p>
+    </section>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">Hosting logs</h2>
+      <p class="mt-2 text-paper-300">
+        Like virtually all web hosting, the infrastructure serving this site will typically
+        keep ordinary request logs (such as IP address, requested URL, and timestamp) for
+        operational and security purposes, for a limited retention period, as is standard
+        practice for static web hosting. The specifics depend on {siteConfig.operatorName || "the operator's"}{" "}
+        chosen hosting provider and should be confirmed and detailed here before a public
+        launch.
+      </p>
+    </section>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">Third-party data requests</h2>
+      <p class="mt-2 text-paper-300">
+        Fonts are loaded from Google Fonts over HTTPS, which involves your browser making a
+        request to Google's servers for that font file, subject to Google's own privacy
+        practices. No other third-party network requests are made by TimeAtlas's core
+        features.
+      </p>
+    </section>
+
+    {siteConfig.contactEmail && (
+      <section class="mt-8">
+        <h2 class="text-xl font-semibold text-paper-100">Questions</h2>
+        <p class="mt-2 text-paper-300">
+          Email <a href={`mailto:${siteConfig.contactEmail}`} class="underline hover:text-paper-100">{siteConfig.contactEmail}</a> with questions about this page.
+        </p>
+      </section>
+    )}
+  </article>
+</Layout>

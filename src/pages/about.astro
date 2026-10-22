@@ -1,0 +1,116 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { siteConfig } from "../config/site";
+---
+
+<Layout
+  title="About"
+  description="What TimeAtlas is, how it works without any paid APIs, and exactly where its city, time zone, and map data comes from."
+>
+  <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">About TimeAtlas</h1>
+    <p class="mt-3 text-paper-400">Explore the world. Find your time.</p>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">What this is</h2>
+      <p class="mt-2 text-paper-300">
+        TimeAtlas is a world clock: search a city or country, see its local time next to
+        yours, compare several at once, and look them up on an interactive globe. It's built
+        for the practical problem of comparing time zones and planning calls across them —
+        the globe is there to make that understandable and a little more engaging, not as a
+        novelty on its own.
+      </p>
+      <p class="mt-2 text-paper-300">
+        Almost everything runs in your browser. Search, clocks, time-zone math, comparisons,
+        and your saved preferences all work entirely client-side, using
+        your device's own clock and the time zone database built into your browser. There is
+        no user account system and no paid third-party API behind any of this.
+      </p>
+    </section>
+
+    {siteConfig.operatorName && (
+      <section class="mt-8">
+        <h2 class="text-xl font-semibold text-paper-100">Who runs this</h2>
+        <p class="mt-2 text-paper-300">
+          TimeAtlas is operated by {siteConfig.operatorName}.
+        </p>
+      </section>
+    )}
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">What it depends on, honestly</h2>
+      <ul class="mt-2 list-disc space-y-2 pl-5 text-paper-300">
+        <li>
+          <strong class="text-paper-100">Your device's clock.</strong> The "Live" time shown
+          anywhere on TimeAtlas is read directly from your device's system clock. It is not
+          checked against an atomic clock, a GPS signal, or any time server. If your device's
+          clock is wrong, so is the time you see here.
+        </li>
+        <li>
+          <strong class="text-paper-100">Your browser's time zone database.</strong> Offsets
+          and daylight-saving rules come from the IANA time zone database as implemented by
+          your browser (via the Intl JavaScript API). Rule changes take effect once your
+          browser updates that database — see the <a href="/guide#accuracy" class="underline hover:text-paper-100">accuracy notes</a>.
+        </li>
+        <li>
+          <strong class="text-paper-100">A finite city dataset.</strong> TimeAtlas's search
+          covers a large but bounded set of cities — see <a href="/guide#coverage" class="underline hover:text-paper-100">coverage notes</a> for exactly what's included.
+        </li>
+        <li>
+          <strong class="text-paper-100">A simplified globe.</strong> The 3D globe is a
+          stylized model with approximate day/night shading, not satellite imagery or a live
+          feed — see <a href="/guide#globe" class="underline hover:text-paper-100">what the globe does and doesn't show</a>.
+        </li>
+      </ul>
+    </section>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">What "no paid APIs" does and doesn't mean</h2>
+      <p class="mt-2 text-paper-300">
+        TimeAtlas doesn't call any paid or metered third-party API, and doesn't require you —
+        or us — to hold an API key for it to work. That's a statement about the software, not
+        about the cost of running it: serving this site still involves ordinary, real-world
+        costs like web hosting, bandwidth, and (for the public production domain) domain
+        registration. None of that is free merely because no API bill is attached to it.
+      </p>
+    </section>
+
+    <section id="data-sources" class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">Data sources and licensing</h2>
+      <p class="mt-2 text-paper-300">
+        Full version numbers, license text, and attribution requirements for every dataset and
+        asset are recorded in <code class="tabular">DATA_SOURCES.md</code> in the project
+        repository. In short:
+      </p>
+      <ul class="mt-2 list-disc space-y-2 pl-5 text-paper-300">
+        <li>
+          <strong class="text-paper-100">Cities, regions, and time zones:</strong>
+          <a href="https://www.geonames.org/" class="underline hover:text-paper-100" rel="noopener noreferrer" target="_blank">GeoNames.org</a>,
+          licensed under
+          <a href="https://creativecommons.org/licenses/by/4.0/" class="underline hover:text-paper-100" rel="noopener noreferrer" target="_blank">CC BY 4.0</a>.
+        </li>
+        <li>
+          <strong class="text-paper-100">Country/time-zone relationships:</strong> the IANA
+          time zone database (public domain).
+        </li>
+        <li>
+          <strong class="text-paper-100">Country boundaries:</strong>
+          <a href="https://www.naturalearthdata.com/" class="underline hover:text-paper-100" rel="noopener noreferrer" target="_blank">Natural Earth</a>
+          (public domain), via the MIT-licensed
+          <a href="https://github.com/datasets/geo-countries" class="underline hover:text-paper-100" rel="noopener noreferrer" target="_blank">datasets/geo-countries</a>
+          GeoJSON packaging.
+        </li>
+        <li>
+          <strong class="text-paper-100">Earth textures:</strong> NASA Visible Earth (Blue
+          Marble) and NASA Earth Observatory (Black Marble) imagery, both public domain,
+          resized and re-compressed for the web.
+        </li>
+      </ul>
+      <p class="mt-2 text-paper-300">
+        Natural Earth's boundary data documents its own conventions for disputed and de facto
+        borders; TimeAtlas draws them as published and doesn't intend this as a political
+        endorsement of any claim.
+      </p>
+    </section>
+  </article>
+</Layout>

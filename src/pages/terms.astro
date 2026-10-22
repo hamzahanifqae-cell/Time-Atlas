@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { siteConfig } from "../config/site";
+const lastUpdated = "2026-10-21";
+---
+
+<Layout title="Terms" description="Terms of use for TimeAtlas, including the limits of what its clocks, search, and globe can promise.">
+  <article class="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">Terms of use</h1>
+
+    <p class="mt-3 text-sm text-paper-600">Last updated: {lastUpdated}</p>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">What TimeAtlas is for</h2>
+      <p class="mt-2 text-paper-300">
+        TimeAtlas is an informational tool for comparing times across time zones. It is
+        provided for general convenience and is not a substitute for an authoritative source
+        when precision genuinely matters — for example, legal deadlines, travel bookings, or
+        anything where being off by the wrong offset or daylight-saving status would cause
+        real harm.
+      </p>
+    </section>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">No accuracy guarantee</h2>
+      <p class="mt-2 text-paper-300">
+        TimeAtlas's "Live" clocks depend on your own device's system clock and are not
+        independently verified against any time authority. Time zone and daylight-saving data
+        comes from your browser's built-in time zone database and can lag behind very recent
+        real-world rule changes. Day/night shading on the globe is an approximation, not an
+        astronomical calculation of actual sunrise or sunset. See the
+        <a href="/guide" class="underline hover:text-paper-100">guide</a> for the full detail.
+        TimeAtlas is provided "as is," without warranty of accuracy, and{" "}
+        {siteConfig.operatorName || "its operator"} disclaims liability for decisions made in
+        reliance on it to the fullest extent permitted by law.
+      </p>
+    </section>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">Acceptable use</h2>
+      <p class="mt-2 text-paper-300">
+        Don't use TimeAtlas to attempt to disrupt the service (for example, automated
+        scraping at a volume that degrades it for other users), to circumvent any access
+        controls, or for any unlawful purpose.
+      </p>
+    </section>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">Third-party data and content</h2>
+      <p class="mt-2 text-paper-300">
+        TimeAtlas incorporates third-party geographic data under the licenses described on the
+        <a href="/about#data-sources" class="underline hover:text-paper-100">About page</a>.
+        Those licenses, and the terms of the services TimeAtlas's fonts are loaded from,
+        apply alongside these terms.
+      </p>
+    </section>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">Changes</h2>
+      <p class="mt-2 text-paper-300">
+        These terms may be updated from time to time; the date above reflects the last
+        change.
+      </p>
+    </section>
+
+    {siteConfig.contactEmail && (
+      <section class="mt-8">
+        <h2 class="text-xl font-semibold text-paper-100">Questions</h2>
+        <p class="mt-2 text-paper-300">
+          Email <a href={`mailto:${siteConfig.contactEmail}`} class="underline hover:text-paper-100">{siteConfig.contactEmail}</a> with questions about this page.
+        </p>
+      </section>
+    )}
+  </article>
+</Layout>

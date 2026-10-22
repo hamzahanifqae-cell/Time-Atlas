@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Deep navy surfaces */
+  --color-navy-950: #060a13;
+  --color-navy-900: #0a0f1d;
+  --color-navy-800: #111a2d;
+  --color-navy-700: #1a2740;
+  --color-navy-600: #253552;
+  --color-navy-500: #344867;
+
+  /* Warm white text */
+  --color-paper-100: #faf7f0;
+  --color-paper-200: #f1ece0;
+  --color-paper-400: #c9c3b6;
+  --color-paper-600: #938c7d;
+
+  /* Restrained accents */
+  --color-cyan-400: #d9b58a;
+  --color-cyan-500: #c69b6b;
+  --color-cyan-600: #ac8052;
+
+  --color-amber-400: #e8b35e;
+  --color-amber-500: #d99a3a;
+  --color-amber-600: #b87d28;
+
+  --color-danger-400: #e8847a;
+  --color-danger-500: #d2635a;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-navy-950);
+  color: var(--color-paper-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Stable, non-jumping clock digits everywhere they appear. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* A single consistent, visible focus style across the app (never color-only). */
+:focus-visible {
+  outline: 2px solid var(--color-cyan-400);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background-color: var(--color-cyan-600);
+  color: var(--color-navy-950);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--color-navy-800);
+  color: var(--color-paper-100);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 0.5rem 0;
+  border: 1px solid var(--color-navy-600);
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* TimeAtlas product theme */
+:root { --color-paper-300:#d6dfec; --color-paper-500:#9aabc0; --atlas-surface:#101d30; --atlas-shadow:0 14px 45px #00000014; }
+:root[data-theme="light"] { color-scheme:light; --color-navy-950:#f4f7fb; --color-navy-900:#ffffff; --color-navy-800:#eef3f9; --color-navy-700:#d9e2ed; --color-navy-600:#bfccdd; --color-navy-500:#8a9db5; --color-paper-100:#152a43; --color-paper-200:#263d56; --color-paper-300:#405873; --color-paper-400:#526a82; --color-paper-500:#62768c; --color-paper-600:#61748a; --color-cyan-400:#82572f; --color-cyan-500:#895b30; --color-cyan-600:#80532c; --color-amber-400:#94631a; --color-amber-500:#94631a; --atlas-surface:#ffffff; --atlas-shadow:0 12px 36px #203b5a08; }
+body { line-height:1.65; }
+.atlas-header { background:color-mix(in srgb,var(--color-navy-900) 93%,transparent);border-color:var(--color-navy-700); }
+.atlas-header>div { min-height:80px;gap:24px; }
+.atlas-header nav a { font-size:13px;font-weight:500;padding:10px 18px;border-radius:9px; }
+.header-actions { display:flex;align-items:center;gap:12px; }
+.theme-toggle { display:flex;align-items:center;gap:9px;min-height:40px;padding:8px 13px;border:1px solid var(--color-navy-700);border-radius:10px;font-size:12px;font-weight:500;color:var(--color-paper-200);background:var(--color-navy-900);cursor:pointer; }
+.theme-toggle:hover { border-color:var(--color-cyan-500); }
+.theme-moon { display:none; }[data-theme="light"] .theme-moon { display:block; }[data-theme="light"] .theme-sun { display:none; }
+.atlas-home { max-width:1280px;padding-top:46px;padding-bottom:65px; }
+.atlas-intro { position:relative;max-width:740px;margin-bottom:30px; }
+.atlas-eyebrow { display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.18em;font-weight:600;color:var(--color-cyan-400);margin-bottom:16px; }
+.atlas-eyebrow>span { width:6px;height:6px;background:var(--color-cyan-400);border-radius:50%; }
+.atlas-intro h1 { font-size:clamp(38px,4.5vw,59px);line-height:1.08;letter-spacing:-.055em;font-weight:600; }
+.intro-accent { color:var(--color-cyan-400); }
+.atlas-intro>p:last-child { font-size:14px;line-height:1.8;max-width:540px;margin-top:18px; }
+.atlas-search { background:var(--atlas-surface);box-shadow:var(--atlas-shadow);position:relative;z-index:20;padding:19px 22px;border-radius:16px; }
+.atlas-search input { min-height:48px; }.atlas-search button { border-radius:8px; }
+.atlas-workspace { display:grid;grid-template-columns:minmax(0, .85fr) minmax(0,1.25fr);gap:24px;align-items:stretch; }
+.atlas-clock-column { min-width:0;display:flex;flex-direction:column;gap:15px; }
+.atlas-device { padding:17px 22px;background:var(--atlas-surface);border:1px solid var(--color-navy-700);border-radius:15px; }
+.atlas-device>div { border:0;background:transparent;padding:5px 0 0; }
+.atlas-section-label { display:block;font-size:9px;letter-spacing:.16em;color:var(--color-paper-600);font-weight:600; }
+.atlas-clock-column>div:not(.atlas-device) { background:var(--atlas-surface);box-shadow:var(--atlas-shadow);border-radius:18px; }
+.atlas-clock-column h2 { font-size:20px;letter-spacing:-.03em; }
+.atlas-clock-column p.text-6xl { font-size:64px;letter-spacing:-.06em; }.atlas-clock-column dl { gap:15px;font-size:12px; }
+.atlas-clock-note { font-size:10px;line-height:1.6;color:var(--color-paper-600);padding:0 6px; }
+.atlas-empty { flex:1;border:1px solid var(--color-navy-700);padding:30px 25px;display:flex;flex-direction:column;justify-content:center; }
+.empty-globe { color:var(--color-cyan-400);font-size:48px;line-height:1;margin-bottom:22px; }
+.atlas-empty h2 { font-size:27px;line-height:1.25;margin-top:13px;letter-spacing:-.045em; }.atlas-empty p:not(.atlas-section-label) { font-size:13px;line-height:1.8;color:var(--color-paper-400);margin-top:13px;max-width:290px; }.empty-coordinates { font-size:8px;letter-spacing:.1em;color:var(--color-paper-600);margin-top:27px; }
+.atlas-earth-stage { position:relative;display:flex;flex-direction:column;min-height:510px;overflow:hidden;border:1px solid #26394e;border-radius:21px;background:radial-gradient(ellipse at 50% 43%,#152c44 0%,#0a1625 55%,#07101b 100%);box-shadow:0 16px 45px #07132420;color:#dce9f5; }
+.earth-stage-label { position:absolute;left:23px;right:23px;top:22px;display:flex;align-items:center;gap:8px;font-size:9px;font-weight:500;letter-spacing:.15em;z-index:2;pointer-events:none;color:#a8bdcf; }
+.earth-label-dot { width:5px;height:5px;border-radius:50%;background:#d9b58a; }.earth-stage-badge { margin-left:auto;font-size:8px;border:1px solid #2e4356;border-radius:5px;padding:4px 7px;letter-spacing:.09em; }
+.atlas-earth-canvas { position:relative;flex:1;min-height:460px; }.earth-stage-footer { display:flex;justify-content:space-between;gap:12px;padding:13px 21px;border-top:1px solid #213244;color:#8fa5ba;font-size:9px;letter-spacing:.015em; }
+.globe-interaction { cursor:grab; }.globe-interaction:active { cursor:grabbing; }.globe-interaction canvas { display:block; }
+.atlas-home section { box-shadow:var(--atlas-shadow);background:var(--atlas-surface);border-radius:18px; }.atlas-home section h2 { letter-spacing:-.025em; }.atlas-home section>p { font-size:12px;line-height:1.8; }.atlas-home table { font-size:11px; }
+:root[data-theme="light"] input,:root[data-theme="light"] select { color-scheme:light; }
+@media(min-width:1024px) { .atlas-intro h1 br { display:none; }.atlas-intro h1 .intro-accent { display:block; } }
+@media(max-width:950px) { .atlas-workspace { grid-template-columns:1fr; }.atlas-earth-stage { min-height:460px; }.atlas-earth-canvas { min-height:420px; }.atlas-clock-column { display:grid;grid-template-columns:1fr; }.atlas-clock-column p.text-6xl { font-size:64px; } }
+@media(max-width:600px) { .atlas-home { padding-top:30px; }.atlas-header>div { min-height:68px;gap:12px; }.theme-label { display:none; }.theme-toggle { padding:9px; }.atlas-intro h1 { font-size:43px; }.atlas-search { padding:16px; }.atlas-earth-stage { min-height:365px; }.atlas-earth-canvas { min-height:330px; }.earth-stage-label { left:17px;right:17px;top:16px;font-size:8px; }.earth-stage-footer { font-size:8px;padding:12px 15px; }.atlas-clock-column p.text-6xl { font-size:55px; } }
+@media(min-width:1024px) { .atlas-intro { max-width:none;display:grid;grid-template-columns:1.1fr .9fr;column-gap:60px;align-items:end; }.atlas-eyebrow { grid-column:1 / -1; }.atlas-intro>p:last-child { margin:0 0 5px;font-size:14px;max-width:410px; }.atlas-intro h1 { font-size:53px; } }
+
+.clock-digits { display:flex;align-items:baseline;flex-wrap:wrap;column-gap:0;row-gap:8px;line-height:1.05;font-weight:600; }
+.clock-main { font-size:clamp(48px,4.8vw,72px);letter-spacing:-.045em;white-space:nowrap; }
+.clock-seconds { display:inline-flex;align-items:baseline;gap:3px;font-size:25px;letter-spacing:0;margin-left:6px;line-height:1; }
+.clock-period { font-size:23px;letter-spacing:0;align-self:flex-start;margin-left:13px;padding-top:3px;line-height:1.2; }
+.globe-marker-label { position:absolute;top:0;left:0;z-index:3;pointer-events:none;max-width:200px;padding:7px 11px;border:1px solid #c69b6b80;border-radius:8px;background:#0a192eef;color:#f4f8ff;box-shadow:0 4px 18px #0005;font:500 11px/1.5 var(--font-sans);letter-spacing:.01em; }
+@media(max-width:480px) { .clock-main { font-size:56px; }.clock-seconds { font-size:22px;margin-left:5px; }.clock-period { font-size:19px;margin-left:9px; }.globe-marker-label { max-width:160px;font-size:10px; } }

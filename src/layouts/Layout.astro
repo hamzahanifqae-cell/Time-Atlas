@@ -1,0 +1,78 @@
+---
+import "../styles/global.css";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import { siteConfig, siteOrigin } from "../config/site";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Force noindex for a specific page (e.g. search-result states) regardless of staging. */
+  noindex?: boolean;
+  structuredData?: Record<string, unknown>;
+}
+
+const { title, description, noindex = false, structuredData } = Astro.props;
+const fullTitle = title === "TimeAtlas" ? title : `${title} — TimeAtlas`;
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+const shouldNoindex = noindex || siteConfig.staging;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script is:inline>
+      (() => {
+        let theme;
+        try { theme = localStorage.getItem('timeatlas-theme'); } catch {}
+        if (theme !== 'light' && theme !== 'dark') theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {shouldNoindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TimeAtlas" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    {
+      structuredData && (
+        <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+      )
+    }
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    {
+      siteConfig.staging && (
+        <div class="bg-amber-500 px-4 py-1.5 text-center text-xs font-medium text-navy-950">
+          Staging build — not the public TimeAtlas site. Search engines are told not to index this.
+        </div>
+      )
+    }
+    <Header />
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,44 @@
+---
+const year = new Date().getUTCFullYear();
+const links = [
+  { href: "/clocks", label: "World Clocks" },
+  { href: "/guide", label: "Time Zone Guide" },
+  { href: "/about", label: "About" },
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+];
+---
+
+<footer class="border-t border-navy-700 bg-navy-900">
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+      <div class="max-w-sm">
+        <p class="text-sm font-semibold text-paper-100">TimeAtlas</p>
+        <p class="mt-1 text-sm text-paper-400">Explore the world. Find your time.</p>
+        <p class="mt-3 text-xs leading-relaxed text-paper-600">
+          Clocks use your device's system time and the IANA time zone database, as implemented
+          by your browser. See the <a href="/guide#accuracy" class="underline hover:text-paper-400">accuracy notes</a>
+          for what that does and doesn't guarantee.
+        </p>
+      </div>
+      <nav aria-label="Footer">
+        <div class="grid grid-cols-2 items-start gap-x-8 text-sm text-paper-400">
+          <ul class="flex flex-col gap-2">
+            {links.slice(0, 2).map((link) => (
+              <li><a href={link.href} class="whitespace-nowrap hover:text-paper-100 hover:underline">{link.label}</a></li>
+            ))}
+          </ul>
+          <ul class="flex flex-col gap-2">
+            {links.slice(2).map((link) => (
+              <li><a href={link.href} class="whitespace-nowrap hover:text-paper-100 hover:underline">{link.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <p class="mt-8 border-t border-navy-700 pt-6 text-xs text-paper-600">
+      © {year} TimeAtlas. Country boundary data adapted from Natural Earth (public domain). City
+      data adapted from GeoNames.org (CC BY 4.0). See <a href="/about#data-sources" class="underline hover:text-paper-400">data sources</a> for full attribution.
+    </p>
+  </div>
+</footer>
