@@ -87,3 +87,22 @@ See `.env.example` for the authoritative list and validation rules (also enforce
 
 `npm run build:local` skips all of the above, for building/previewing locally without real
 production configuration.
+
+## Branded missing-page response (Apache/cPanel)
+
+The build includes `404.html` and a hidden `.htaccess` with `ErrorDocument 404 /404.html`.
+Upload **both**, along with `_astro/` and the rest of `dist/`, to the public document root.
+Ensure your file manager includes hidden files. If the host already has an `.htaccess`,
+merge these directives with its existing rules rather than replacing its HTTPS/security settings. An invalid URL must return HTTP 404 with
+TimeAtlas's styled page, not redirect to the homepage or return HTTP 200. Apache must allow
+`AllowOverride FileInfo`; if it ignores `.htaccess`, ask the host to set the same directive
+in the virtual host. A second "ErrorDocument" failure means the configured error target is
+missing/unreadable or points at the wrong document root. The error target must be the
+root-relative `/404.html`, not `/404/` or an absolute external redirect.
+
+On nginx use `error_page 404 /404.html;` with a location serving that file. On managed static
+hosting, configure the provider's custom 404 behavior. This repository cannot change a live
+host automatically: redeploy the built files/configuration, then verify a nonexistent URL.
+The Apache configuration also sends `/sitemap.xml` to `/sitemap-index.xml`; the actual sitemap
+is generated only when a production origin is configured. Normal page links use trailing
+slashes consistently to avoid directory redirects.

@@ -45,14 +45,14 @@ const structuredData = {
         longitude — political borders, not meridians, decide where one zone ends and the next
         begins, which is why zone boundaries zigzag along country and state lines rather than
         running in straight vertical bands. The rules for a given zone — its offset from UTC,
-        whether and when it observes daylight saving — are maintained by the
+        whether and when it observes daylight saving — are maintained by the{" "}
         <a
           href="https://www.iana.org/time-zones"
           class="underline hover:text-paper-100"
           rel="noopener noreferrer"
           target="_blank">IANA Time Zone Database</a
         >, usually called tzdata. Every clock on TimeAtlas is computed from an IANA zone
-        identifier (like <code class="tabular">Europe/Berlin</code> or
+        identifier (like <code class="tabular">Europe/Berlin</code> or{" "}
         <code class="tabular">America/Argentina/Cordoba</code>), not a hand-entered offset, so
         it automatically picks up the real historical and current rules for that place.
       </p>
@@ -144,8 +144,8 @@ const structuredData = {
         Very rarely, a source record's time zone assignment is itself slightly off (for
         example, a town very close to a time-zone boundary). We correct specific, confirmed
         cases like this by pointing to the right IANA zone identifier for that place — never
-        by inventing a fixed offset. See
-        <a href="/about#data-sources" class="underline hover:text-paper-100">data sources</a>
+        by inventing a fixed offset. See{" "}
+        <a href="/about/#data-sources" class="underline hover:text-paper-100">data sources</a>{" "}
         for exactly where this data comes from and its license.
       </p>
 

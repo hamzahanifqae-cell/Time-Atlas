@@ -136,3 +136,48 @@ body { line-height:1.65; }
 .clock-period { font-size:23px;letter-spacing:0;align-self:flex-start;margin-left:13px;padding-top:3px;line-height:1.2; }
 .globe-marker-label { position:absolute;top:0;left:0;z-index:3;pointer-events:none;max-width:200px;padding:7px 11px;border:1px solid #c69b6b80;border-radius:8px;background:#0a192eef;color:#f4f8ff;box-shadow:0 4px 18px #0005;font:500 11px/1.5 var(--font-sans);letter-spacing:.01em; }
 @media(max-width:480px) { .clock-main { font-size:56px; }.clock-seconds { font-size:22px;margin-left:5px; }.clock-period { font-size:19px;margin-left:9px; }.globe-marker-label { max-width:160px;font-size:10px; } }
+
+/* Clock cards respond to their available space, rather than the viewport. */
+.clock-card { min-width:0; }
+.clock-card--full { container-type:inline-size; }
+.clock-metadata { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 24px; }
+.clock-metadata>div { min-width:0; }
+.clock-metadata dt { margin-bottom:5px;line-height:1.5; }
+.clock-metadata dd { overflow-wrap:anywhere;line-height:1.65; }
+@container (min-width:640px) { .clock-metadata { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+.clock-card--compact { display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;border:1px solid var(--color-navy-700);border-radius:11px;background:color-mix(in srgb,var(--color-navy-800) 60%,transparent);padding:15px; }
+.compact-location { flex:1 1 145px;min-width:0; }
+.compact-city-name { font-size:14px;font-weight:600;line-height:1.5;overflow-wrap:anywhere; }
+.compact-region { font-size:11px;line-height:1.6;overflow-wrap:anywhere; }
+.compact-coordinate { display:block;font-size:10px;margin-top:2px; }
+.compact-context { display:flex;flex-wrap:wrap;gap:2px 9px;font-size:11px;line-height:1.6;margin-top:5px; }
+.compact-context span { max-width:100%;overflow-wrap:anywhere; }
+.compact-time-actions { display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0; }
+.compact-time { white-space:nowrap;font-size:22px;font-weight:600;line-height:1.3; }
+.country-city-list { grid-template-columns:minmax(0,1fr); }
+.country-city-list>li,.country-city-list button { min-width:0; }
+.search-result-option { display:flex;align-items:baseline;justify-content:space-between;gap:6px 14px;flex-wrap:wrap; }
+.search-result-name { flex:1 1 180px;min-width:0;overflow-wrap:anywhere; }
+article code { overflow-wrap:anywhere; }
+@media(max-width:420px) { .clock-metadata { gap:18px; }.compact-time { font-size:20px; } }
+footer a[aria-current="page"] { color:var(--color-paper-100);text-decoration:underline;text-underline-offset:4px; }
+.not-found-shell { max-width:760px;margin:auto;padding:68px 24px 90px;text-align:center; }
+.not-found-art { color:var(--color-cyan-400);display:flex;justify-content:center;margin-bottom:25px; }
+.not-found-kicker { font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--color-cyan-400); }
+.not-found-shell h1 { margin-top:18px;font-size:clamp(37px,5vw,58px);line-height:1.12;font-weight:600;letter-spacing:-.05em; }
+.not-found-shell h1 span { color:var(--color-cyan-400); }
+.not-found-description { max-width:465px;margin:22px auto 0;line-height:1.8;font-size:14px;color:var(--color-paper-400); }
+.not-found-actions { display:flex;flex-wrap:wrap;gap:13px;justify-content:center;margin-top:31px; }
+.not-found-actions a { display:inline-flex;align-items:center;justify-content:center;gap:22px;min-height:46px;border-radius:9px;padding:12px 19px;font-size:13px;font-weight:600; }
+.not-found-primary { background:var(--color-cyan-400);color:var(--color-navy-950); }
+.not-found-primary:hover { background:var(--color-cyan-500); }
+.not-found-secondary { border:1px solid var(--color-navy-600);background:var(--color-navy-900);color:var(--color-paper-100); }
+.not-found-secondary:hover { border-color:var(--color-cyan-500); }
+.not-found-guide { display:inline-block;margin-top:26px;color:var(--color-paper-600);font-size:12px;text-decoration:underline;text-underline-offset:3px; }
+@media(max-width:480px) { .not-found-shell { padding:45px 20px 60px; }.not-found-art svg { width:112px;height:112px; }.not-found-actions { flex-direction:column;max-width:280px;margin-left:auto;margin-right:auto; } }
+/* A long multi-zone country list must never stretch the WebGL canvas. */
+.atlas-earth-stage { align-self:start;height:510px; }
+.country-city-list { max-height:600px;overflow-y:auto;padding:2px 4px 3px 1px;scrollbar-width:thin;scrollbar-color:var(--color-navy-500) transparent; }
+@media(min-width:951px) { .atlas-earth-stage { position:sticky;top:104px; } }
+@media(max-width:950px) { .atlas-earth-stage { height:460px; } }
+@media(max-width:600px) { .atlas-earth-stage { height:365px; } }

@@ -1,3 +1,4 @@
+import { cityLocationHints } from "../../lib/geo/display";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { useGeoData } from "../../lib/hooks/useGeoData";
 import { search, type SearchResult } from "../../lib/search/index";
@@ -24,6 +25,7 @@ export default function SearchCombobox({ placeholder, onSelect }: SearchCombobox
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [announcement, setAnnouncement] = useState("");
+  const locationHints = useMemo(() => cityLocationHints(geo.cities), [geo.cities]);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const baseId = useId();
@@ -178,11 +180,11 @@ export default function SearchCombobox({ placeholder, onSelect }: SearchCombobox
                   commitSelection(result);
                 }}
                 onMouseEnter={() => setActiveIndex(i)}
-                className={`flex cursor-pointer items-baseline justify-between gap-3 px-4 py-2.5 text-sm ${
+                className={`search-result-option cursor-pointer px-4 py-2.5 text-sm ${
                   i === activeIndex ? "bg-navy-700 text-paper-100" : "text-paper-200"
                 }`}
               >
-                <span className="truncate">{resultLabel(result)}</span>
+                <span className="search-result-name">{resultLabel(result)}{result.kind === "city" && locationHints.has(result.city.id) && <span className="block text-xs text-paper-600">{locationHints.get(result.city.id)}</span>}</span>
                 {result.kind === "city" && (
                   <span className="shrink-0 text-xs text-paper-600 tabular">{result.city.tz}</span>
                 )}

@@ -23,7 +23,7 @@ export default function CountryPanel({ country, citiesById }: CountryPanelProps)
             {country.name} spans {country.timezones.length} time zones. There's no single
             "{country.name} time" — choose a city below to see its local time.
           </p>
-          <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+          <ul className="country-city-list mt-4 grid gap-3">
             {representativeCities.map((city) => (
               <li key={city.id}>
                 <button
@@ -41,7 +41,7 @@ export default function CountryPanel({ country, citiesById }: CountryPanelProps)
             <p className="mt-3 text-xs text-paper-600">
               {country.timezones.length - representativeCities.length} additional time zone(s)
               in {country.name} have no city in our dataset large enough to list (see{" "}
-              <a href="/guide#coverage" className="underline hover:text-paper-400">
+              <a href="/guide/#coverage" className="underline hover:text-paper-400">
                 coverage notes
               </a>
               ).
@@ -55,7 +55,7 @@ export default function CountryPanel({ country, citiesById }: CountryPanelProps)
       ) : (
         <p className="mt-4 text-sm text-paper-400">
           No city in our dataset for {country.name} — see{" "}
-          <a href="/guide#coverage" className="underline hover:text-paper-400">
+          <a href="/guide/#coverage" className="underline hover:text-paper-400">
             coverage notes
           </a>
           .{" "}
@@ -70,7 +70,7 @@ export default function CountryPanel({ country, citiesById }: CountryPanelProps)
       <p className="mt-4 text-xs text-paper-600">
         {country.cityCount} {country.cityCount === 1 ? "city" : "cities"} from this country are
         in TimeAtlas's dataset — see the{" "}
-        <a href="/guide#coverage" className="underline hover:text-paper-400">
+        <a href="/guide/#coverage" className="underline hover:text-paper-400">
           coverage notes
         </a>{" "}
         for what that does and doesn't include.

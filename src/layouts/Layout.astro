@@ -54,7 +54,7 @@ const shouldNoindex = noindex || siteConfig.staging;
     />
 
     {
-      siteConfig.adsenseClientId && (
+      siteConfig.adsenseClientId && !noindex && (
         <script
           is:inline
           async

@@ -1,36 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
 ---
-
-<Layout title="Page not found" description="This page doesn't exist on TimeAtlas." noindex>
-  <div class="mx-auto flex max-w-xl flex-col items-center px-4 py-20 text-center sm:px-6">
-    <p class="text-sm font-medium uppercase tracking-wide text-cyan-400">404</p>
-    <h1 class="mt-2 text-3xl font-semibold tracking-tight text-paper-100">
-      We couldn't find that page
-    </h1>
-    <p class="mt-3 text-paper-400">
-      The link might be out of date, or the page may have moved. Here's where you can go
-      instead:
-    </p>
-    <div class="mt-6 flex flex-wrap justify-center gap-3">
-      <a
-        href="/"
-        class="rounded-md border border-cyan-600/50 bg-cyan-600/10 px-4 py-2 text-sm font-medium text-cyan-400 hover:bg-cyan-600/20"
-      >
-        Go to the homepage
-      </a>
-      <a
-        href="/clocks"
-        class="rounded-md border border-navy-600 px-4 py-2 text-sm text-paper-200 hover:text-paper-100"
-      >
-        Browse world clocks
-      </a>
-      <a
-        href="/guide"
-        class="rounded-md border border-navy-600 px-4 py-2 text-sm text-paper-200 hover:text-paper-100"
-      >
-        Read the time zone guide
-      </a>
+<Layout title="Page not found" description="This address doesn't lead to a page on TimeAtlas. Find your way back to world clocks." noindex>
+  <section class="not-found-shell" aria-labelledby="not-found-title">
+    <div class="not-found-art" aria-hidden="true">
+      <svg width="148" height="148" viewBox="0 0 148 148" fill="none"><circle cx="74" cy="74" r="62" stroke="currentColor" stroke-width="1" opacity=".2"/><circle cx="74" cy="74" r="47" stroke="currentColor" stroke-width="1.5"/><ellipse cx="74" cy="74" rx="22" ry="47" stroke="currentColor" opacity=".55"/><path d="M27 74h94M35 49h78M35 99h78" stroke="currentColor" opacity=".55"/><circle cx="113" cy="42" r="7" fill="currentColor"/><path d="m108 37 10 10m0-10-10 10" stroke="var(--color-navy-900)" stroke-width="1.5"/></svg>
     </div>
-  </div>
+    <p class="not-found-kicker">404 · OFF THE MAP</p>
+    <h1 id="not-found-title">A little lost?<br /><span>Let’s get you back.</span></h1>
+    <p class="not-found-description">This address doesn’t lead to a page on TimeAtlas. The link may have changed, or there may be a typo in the URL.</p>
+    <div class="not-found-actions"><a class="not-found-primary" href="/">Back to home <span aria-hidden="true">↗</span></a><a class="not-found-secondary" href="/clocks/">Explore world clocks <span aria-hidden="true">→</span></a></div>
+    <a class="not-found-guide" href="/guide/">Looking for help? Read the time zone guide.</a>
+  </section>
 </Layout>

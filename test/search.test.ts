@@ -46,12 +46,13 @@ const cities: City[] = [
 
 const countries: Country[] = [
   country({ code: "US", name: "United States" }),
+  country({ code: "UM", name: "United States Minor Outlying Islands" }),
   country({ code: "GB", name: "United Kingdom", multiZone: false, timezones: ["Europe/London"] }),
   country({ code: "AE", name: "United Arab Emirates", multiZone: false, timezones: ["Asia/Dubai"] }),
 ];
 
 beforeAll(() => {
-  buildSearchIndex(cities, countries);
+  buildSearchIndex([...cities, cities[0]], countries);
 });
 
 describe("search", () => {
@@ -102,5 +103,25 @@ describe("search", () => {
   it("returns nothing for an empty query", () => {
     expect(search("")).toEqual([]);
     expect(search("   ")).toEqual([]);
+  });
+});
+
+describe("search relevance regressions", () => {
+  it("places the exact United States country before a longer prefix country", () => {
+    const results = search("United States");
+    expect(results[0]).toMatchObject({ kind: "country", country: { code: "US" } });
+    expect(results.some(result => result.kind === "country" && result.country.code === "UM")).toBe(true);
+    expect(results.every(result => result.kind === "country")).toBe(true);
+  });
+  it("normalizes repeated whitespace in a country query", () => {
+    expect(search("  united    states ")[0]).toMatchObject({ kind: "country", country: { code: "US" } });
+  });
+  it("deduplicates repeated source IDs without discarding separate same-named towns", () => {
+    const results = search("springfield").filter(result => result.kind === "city");
+    expect(results.map(result => result.city.id)).toHaveLength(3);
+    expect(new Set(results.map(result => result.city.id)).size).toBe(3);
+  });
+  it("keeps typo correction available when no literal name matches", () => {
+    expect(search("pariss").some(result => result.kind === "city" && result.city.id === 6)).toBe(true);
   });
 });

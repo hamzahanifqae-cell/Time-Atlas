@@ -61,3 +61,23 @@ describe("getOffsetDifferenceMinutes / formatDifferenceLabel", () => {
     expect(formatDifferenceLabel(diff)).toBe("4h behind");
   });
 });
+
+describe("fractional-offset display regressions", () => {
+  it("formats historical second-level offsets without floating-point minute tails", () => {
+    expect(formatDifferenceLabel(-868.200000000045)).toBe("14h 28m 12s behind");
+    expect(formatDifferenceLabel(59.999999999999)).toBe("1h ahead");
+    expect(formatDifferenceLabel(-0.00000001)).toBe("Same time");
+  });
+  it("retains quarter-hour and half-hour differences", () => {
+    expect(formatDifferenceLabel(345)).toBe("5h 45m ahead");
+    expect(formatDifferenceLabel(-330)).toBe("5h 30m behind");
+  });
+  it("never prints NaN/Infinity when a difference cannot be computed", () => {
+    expect(formatDifferenceLabel(NaN)).toBe("Unavailable");
+    expect(formatDifferenceLabel(Infinity)).toBe("Unavailable");
+  });
+  it("formats real historical offsets with bounded integer seconds", () => {
+    const value = formatOffsetLabel("America/New_York", Date.UTC(1880, 0, 1));
+    expect(value).toMatch(/^UTC[+−]\d+(?::\d{2}){0,2}$/);
+  });
+});

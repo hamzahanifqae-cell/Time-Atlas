@@ -11,9 +11,10 @@ interface ClockCardProps {
   /** Compact mode for comparison-tray use; full mode for the main hero clock. */
   variant?: "full" | "compact";
   onRemove?: () => void;
+  locationHint?: string;
 }
 
-export default function ClockCard({ city, variant = "full", onRemove }: ClockCardProps) {
+export default function ClockCard({ city, variant = "full", onRemove, locationHint }: ClockCardProps) {
   const instant = useStore($referenceInstant);
   const mode = useStore($mode);
   const { hour12 } = useStore($preferences);
@@ -27,19 +28,14 @@ export default function ClockCard({ city, variant = "full", onRemove }: ClockCar
 
   if (variant === "compact") {
     return (
-      <div className="flex items-center justify-between gap-3 rounded-lg border border-navy-700 bg-navy-800/60 px-4 py-3">
-        <div className="min-w-0">
-          <p className="truncate text-sm font-medium text-paper-100">
-            {city.name}
-            <span className="ml-1.5 text-xs font-normal text-paper-600">{city.country}</span>
-          </p>
-          <p className="text-xs text-paper-400">
-            {parts.weekday} · {offsetLabel}
-            {!isDeviceZone && <span className="ml-1.5">· {diffLabel}</span>}
-          </p>
+      <div className="clock-card clock-card--compact">
+        <div className="compact-location">
+          <p className="compact-city-name text-paper-100">{city.name}</p>
+          <p className="compact-region text-paper-600">{[city.admin1, city.country].filter(Boolean).join(", ")}{locationHint && <span className="compact-coordinate">{locationHint}</span>}</p>
+          <p className="compact-context text-paper-400"><span>{parts.weekday}</span><span>{offsetLabel}</span>{!isDeviceZone && <span>{diffLabel}</span>}</p>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
-          <p className="tabular text-xl font-semibold text-paper-100">
+        <div className="compact-time-actions">
+          <p className="compact-time tabular text-paper-100">
             {parts.hm}
             {parts.ampm && <span className="ml-1 text-xs font-medium text-paper-400">{parts.ampm}</span>}
           </p>
@@ -61,7 +57,7 @@ export default function ClockCard({ city, variant = "full", onRemove }: ClockCar
   }
 
   return (
-    <div className="rounded-2xl border border-navy-700 bg-navy-800/60 p-6 sm:p-8">
+    <div className="clock-card clock-card--full rounded-2xl border border-navy-700 bg-navy-800/60 p-6 sm:p-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold text-paper-100">
@@ -98,7 +94,7 @@ export default function ClockCard({ city, variant = "full", onRemove }: ClockCar
         {parts.weekday}, {parts.dateLabel}
       </p>
 
-      <dl className="mt-6 grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
+      <dl className="clock-metadata mt-6 text-sm">
         <div>
           <dt className="text-paper-600">Time zone</dt>
           <dd className="tabular text-paper-100">{city.tz}</dd>

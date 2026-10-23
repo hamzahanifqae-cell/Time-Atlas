@@ -1,0 +1,8 @@
+# Apache/cPanel: upload this hidden file alongside index.html and 404.html.
+# Requires AllowOverride FileInfo; other hosts must set their own 404 handler.
+ErrorDocument 404 /404.html
+
+# Optional conventional sitemap alias; the canonical URL is sitemap-index.xml.
+<IfModule mod_alias.c>
+  RedirectMatch 302 ^/sitemap\.xml$ /sitemap-index.xml
+</IfModule>

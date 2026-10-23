@@ -5,5 +5,6 @@ export function normalize(input: string): string {
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase()
+    .replace(/\s+/g, " ")
     .trim();
 }

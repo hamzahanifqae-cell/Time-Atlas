@@ -1,3 +1,4 @@
+import { cityLocationHints } from "../../lib/geo/display";
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { useGeoData } from "../../lib/hooks/useGeoData";
@@ -29,8 +30,10 @@ export default function WorldClocksBrowser() {
 
   const citiesForActiveCountry = useMemo(() => {
     if (!activeCountry) return [];
-    return geo.cities.filter((c) => c.country === activeCountry).sort((a, b) => b.pop - a.pop);
+    return [...new Map(geo.cities.filter((c) => c.country === activeCountry).map(city => [city.id, city])).values()].sort((a, b) => b.pop - a.pop);
   }, [activeCountry, geo.cities]);
+
+  const locationHints = useMemo(() => cityLocationHints(citiesForActiveCountry), [citiesForActiveCountry]);
 
   const activeCountryData: Country | undefined = activeCountry
     ? geo.countriesByCode.get(activeCountry)
@@ -124,7 +127,7 @@ export default function WorldClocksBrowser() {
               {citiesForActiveCountry.length === 0 ? (
                 <p className="p-2 text-sm text-paper-600">
                   No city in our dataset for this country — see the{" "}
-                  <a href="/guide#coverage" className="underline hover:text-paper-400">
+                  <a href="/guide/#coverage" className="underline hover:text-paper-400">
                     coverage notes
                   </a>
                   .
@@ -137,9 +140,9 @@ export default function WorldClocksBrowser() {
                         type="button"
                         onClick={() => selectCity(city.id)}
                         className="w-full rounded-lg text-left"
-                        aria-label={`Show local time in ${city.name}`}
+                        aria-label={`Show local time in ${city.name}, ${city.admin1 || city.country}${locationHints.has(city.id) ? `, ${locationHints.get(city.id)}` : ""}`}
                       >
-                        <ClockCard city={city} variant="compact" />
+                        <ClockCard city={city} variant="compact" locationHint={locationHints.get(city.id)} />
                       </button>
                     </li>
                   ))}

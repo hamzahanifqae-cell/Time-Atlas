@@ -27,6 +27,7 @@ const site = config.productionOrigin ?? undefined;
 
 export default defineConfig({
   site,
+  trailingSlash: "always",
   integrations: [
     react(),
     ...(site ? [sitemap()] : []),
