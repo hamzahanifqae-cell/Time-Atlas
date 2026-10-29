@@ -84,6 +84,8 @@ See `.env.example` for the authoritative list and validation rules (also enforce
 | `PUBLIC_OPERATOR_NAME` | Yes | Shown on About/Privacy/Terms. |
 | `PUBLIC_CONTACT_EMAIL` | Yes | Shown on Contact/Privacy. Only syntax is validated — this does not confirm the address can receive mail. |
 | `PUBLIC_STAGING` | No (default `false`) | See above. |
+| `PUBLIC_GOOGLE_SITE_VERIFICATION` | No | Search Console HTML-tag token. Rendered as `google-site-verification`. Public, not a secret. Rebuild after setting it. |
+| `PUBLIC_ADSENSE_CLIENT_ID` | No | AdSense publisher ID. Omit to ship with no ad script. |
 
 `npm run build:local` skips all of the above, for building/previewing locally without real
 production configuration.

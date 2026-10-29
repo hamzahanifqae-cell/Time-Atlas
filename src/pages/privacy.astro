@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { siteConfig } from "../config/site";
-const lastUpdated = "2026-10-21";
+const lastUpdated = "2026-10-30";
 ---
 
 <Layout title="Privacy" description="How TimeAtlas handles data: what's stored locally in your browser, and what a typical hosting log records.">
@@ -28,13 +28,40 @@ const lastUpdated = "2026-10-21";
     </section>
 
     <section class="mt-8">
-      <h2 class="text-xl font-semibold text-paper-100">Cookies and analytics</h2>
-      <p class="mt-2 text-paper-300">
-        TimeAtlas does not set tracking cookies and does not run any analytics or advertising
-        script. (See the <a href="/guide/" class="underline hover:text-paper-100">guide</a> and
-        the project's AdSense-preparation notes for what would change if that's ever added —
-        it isn't live today.)
-      </p>
+      <h2 class="text-xl font-semibold text-paper-100">Cookies, advertising, and analytics</h2>
+      {
+        siteConfig.adsenseClientId ? (
+          <>
+            <p class="mt-2 text-paper-300">
+              TimeAtlas does not run its own analytics. When advertising is enabled, pages load
+              Google AdSense, which can set cookies and use data to serve and measure ads. That
+              can include ads based on your visits to this site and other sites, depending on
+              your Google ad settings and the law where you are.
+            </p>
+            <p class="mt-2 text-paper-300">
+              Google describes this in{" "}
+              <a
+                href="https://policies.google.com/technologies/ads"
+                class="underline hover:text-paper-100"
+                rel="noopener noreferrer"
+                target="_blank">How Google uses information from sites or apps that use its services</a
+              >. You can control ad personalization in{" "}
+              <a
+                href="https://adssettings.google.com/"
+                class="underline hover:text-paper-100"
+                rel="noopener noreferrer"
+                target="_blank">Google's ad settings</a
+              >.
+            </p>
+          </>
+        ) : (
+          <p class="mt-2 text-paper-300">
+            This build does not load an advertising or analytics script, and TimeAtlas does not
+            set its own tracking cookies. Saved clock preferences stay in your browser's local
+            storage.
+          </p>
+        )
+      }
     </section>
 
     <section class="mt-8">
@@ -54,8 +81,12 @@ const lastUpdated = "2026-10-21";
       <p class="mt-2 text-paper-300">
         Fonts are loaded from Google Fonts over HTTPS, which involves your browser making a
         request to Google's servers for that font file, subject to Google's own privacy
-        practices. No other third-party network requests are made by TimeAtlas's core
-        features.
+        practices.
+        {
+          siteConfig.adsenseClientId
+            ? " When advertising is enabled, the page also requests Google's AdSense script."
+            : " The clocks, search, and globe themselves do not call another third-party service."
+        }
       </p>
     </section>
 

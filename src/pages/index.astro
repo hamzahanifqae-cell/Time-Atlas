@@ -1,28 +1,53 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Experience from "../components/Experience.tsx";
+import HomeGuide from "../components/seo/HomeGuide.astro";
 import { siteOrigin } from "../config/site";
+import { HOME_DESCRIPTION, HOME_TITLE, homeFaqs } from "../lib/seo/homeContent";
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "TimeAtlas",
-  url: siteOrigin,
-  description: "Search any city or country, compare world times, and explore an interactive 3D Earth.",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: "TimeAtlas",
+      url: siteOrigin,
+      description: HOME_DESCRIPTION,
+    },
+    {
+      "@type": "WebApplication",
+      name: "TimeAtlas World Clock",
+      url: siteOrigin,
+      applicationCategory: "UtilitiesApplication",
+      operatingSystem: "Any",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      description: HOME_DESCRIPTION,
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: homeFaqs.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    },
+  ],
 };
 ---
 
-<Layout
-  title="TimeAtlas"
-  description="Search any city or country, compare world times, and explore an interactive 3D Earth. Explore the world. Find your time."
-  structuredData={structuredData}
->
+<Layout title={HOME_TITLE} description={HOME_DESCRIPTION} structuredData={structuredData}>
   <div class="atlas-home mx-auto max-w-6xl px-4 py-8 sm:px-6">
-    <div class="atlas-intro mb-8"><p class="atlas-eyebrow"><span></span> A WORLD OF TIME, IN ONE PLACE</p>
+    <div class="atlas-intro mb-8">
+      <p class="atlas-eyebrow"><span></span> WORLD CLOCK AND TIME ZONES</p>
       <h1 class="text-3xl font-semibold tracking-tight text-paper-100 sm:text-4xl">
-        The world moves.<br /><span class="intro-accent">Stay in sync.</span>
+        World clock.<br /><span class="intro-accent">Current time, anywhere.</span>
       </h1>
+      <p>
+        Check the current time in any city, compare the time difference, and convert time zones on a
+        live map.
+      </p>
     </div>
     <Experience client:load />
+    <HomeGuide />
   </div>
 </Layout>

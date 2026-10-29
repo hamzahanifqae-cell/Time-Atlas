@@ -35,9 +35,21 @@ const shouldNoindex = noindex || siteConfig.staging;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    {shouldNoindex && <meta name="robots" content="noindex, nofollow" />}
+    {
+      shouldNoindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+      )
+    }
+    {
+      siteConfig.googleSiteVerification && (
+        <meta name="google-site-verification" content={siteConfig.googleSiteVerification} />
+      )
+    }
 
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="TimeAtlas" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -66,7 +78,10 @@ const shouldNoindex = noindex || siteConfig.staging;
 
     {
       structuredData && (
-        <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(structuredData).replace(/</g, "\\u003c")}
+        />
       )
     }
     <slot name="head" />

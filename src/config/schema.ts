@@ -108,6 +108,11 @@ export const SiteConfigSchema = z.object({
    * to EEA/UK visitors under Google's own policies.
    */
   adsenseClientId: z.string().optional(),
+  /**
+   * Google Search Console HTML-tag verification token. Public by design: it is rendered as
+   * <meta name="google-site-verification">. Optional. Empty means the tag is omitted.
+   */
+  googleSiteVerification: z.string().optional(),
 });
 
 export type SiteConfig = z.infer<typeof SiteConfigSchema>;

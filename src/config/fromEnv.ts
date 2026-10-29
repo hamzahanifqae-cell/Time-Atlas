@@ -1,3 +1,4 @@
+import { readGoogleSiteVerification } from "../lib/seo/googleSiteVerification.ts";
 import { SiteConfigSchema, type SiteConfig } from "./schema.ts";
 
 /** Minimal shape both import.meta.env (Vite/Astro) and process.env (Node scripts) satisfy. */
@@ -18,6 +19,9 @@ export function buildSiteConfig(env: EnvLike, opts: { isLocalBuild?: boolean } =
     staging: env.PUBLIC_STAGING === "true",
     isLocalBuild: Boolean(opts.isLocalBuild ?? (env.PUBLIC_ALLOW_LOCAL_BUILD === "true")),
     adsenseClientId: (env.PUBLIC_ADSENSE_CLIENT_ID as string) || undefined,
+    googleSiteVerification: readGoogleSiteVerification(
+      env.PUBLIC_GOOGLE_SITE_VERIFICATION as string | undefined,
+    ),
   };
   return SiteConfigSchema.parse(raw);
 }

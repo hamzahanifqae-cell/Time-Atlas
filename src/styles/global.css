@@ -160,6 +160,21 @@ body { line-height:1.65; }
 .search-result-name { flex:1 1 180px;min-width:0;overflow-wrap:anywhere; }
 article code { overflow-wrap:anywhere; }
 @media(max-width:420px) { .clock-metadata { gap:18px; }.compact-time { font-size:20px; } }
+.atlas-seo { display:grid;gap:16px;margin-top:56px; }
+.atlas-home .atlas-seo section { padding:22px 24px; }
+.atlas-home .atlas-seo h2 { font-size:22px;font-weight:600;color:var(--color-paper-100); }
+.atlas-home .atlas-seo p,
+.atlas-home .atlas-seo li,
+.atlas-home .atlas-seo dd { font-size:14px;line-height:1.75;color:var(--color-paper-300); }
+.atlas-seo p + p,
+.atlas-seo ul,
+.atlas-seo dl { margin-top:12px; }
+.atlas-seo ul { display:grid;gap:8px;padding-left:1.1rem;list-style:disc; }
+.atlas-seo a { color:var(--color-cyan-400);text-decoration:underline;text-underline-offset:3px; }
+.atlas-seo a:hover { color:var(--color-paper-100); }
+.atlas-seo dl { display:grid;gap:16px; }
+.atlas-seo dt { font-size:15px;font-weight:600;color:var(--color-paper-100); }
+.atlas-seo dd { margin-top:4px; }
 footer a[aria-current="page"] { color:var(--color-paper-100);text-decoration:underline;text-underline-offset:4px; }
 .not-found-shell { max-width:760px;margin:auto;padding:68px 24px 90px;text-align:center; }
 .not-found-art { color:var(--color-cyan-400);display:flex;justify-content:center;margin-bottom:25px; }

@@ -4,14 +4,15 @@ import WorldClocksBrowser from "../../components/clocks/WorldClocksBrowser.tsx";
 ---
 
 <Layout
-  title="Browse world clocks"
-  description="Browse every country TimeAtlas covers and see local times for its cities, without using the 3D globe."
+  title="World Clocks by Country"
+  description="Current local time by country and city. Browse a world clock for every place TimeAtlas covers, with UTC offsets and daylight saving, without the 3D globe."
 >
   <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">Browse world clocks</h1>
+    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">World clocks by country</h1>
     <p class="mt-2 max-w-2xl text-paper-400">
-      Every city and country in TimeAtlas, searchable and browsable here without the 3D
-      globe.
+      Current local time for every city and country in TimeAtlas. Search a place to see its
+      time, UTC offset, and daylight saving status — the same clocks as the homepage, without
+      the 3D globe. Countries with more than one time zone list each zone separately.
     </p>
     <div class="mt-6">
       <WorldClocksBrowser client:load />

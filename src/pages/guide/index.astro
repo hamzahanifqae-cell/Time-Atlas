@@ -4,24 +4,25 @@ import Layout from "../../layouts/Layout.astro";
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Article",
-  headline: "A guide to time zones and daylight saving",
+  headline: "Time zones, UTC, GMT, and daylight saving time",
   description:
-    "How time zones, UTC offsets, and daylight saving actually work, and the specific limitations of TimeAtlas's clocks, search, and globe.",
+    "How time zones, UTC, GMT, and daylight saving time work, and what a world clock's offset actually means.",
 };
 ---
 
 <Layout
-  title="Guide to time zones and daylight saving"
-  description="How time zones, UTC offsets, and daylight saving actually work — and the specific limitations of TimeAtlas's clocks, search, and globe."
+  title="Time Zones, UTC, GMT, and Daylight Saving"
+  description="How time zones, UTC, GMT, and daylight saving time work, and how a world clock decides the current UTC offset for a city."
   structuredData={structuredData}
 >
   <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
     <h1 class="text-3xl font-semibold tracking-tight text-paper-100">
-      A guide to time zones and daylight saving
+      Time zones, UTC, GMT, and daylight saving
     </h1>
     <p class="mt-3 text-paper-400">
-      This is a plain explanation of how clocks around the world actually work, and an honest
-      account of what TimeAtlas can and can't promise.
+      A plain explanation of how clocks around the world work: what a time zone is, how UTC and
+      GMT relate, when daylight saving time changes the offset, and what TimeAtlas can promise.
+      To see a live clock, use the <a href="/" class="underline hover:text-paper-100">world clock</a>.
     </p>
 
     <nav aria-label="On this page" class="mt-6 rounded-lg border border-navy-700 bg-navy-800/40 p-4 text-sm">

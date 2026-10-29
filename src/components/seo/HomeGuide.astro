@@ -1,0 +1,55 @@
+---
+import { cityGroups, homeFaqs } from "../../lib/seo/homeContent";
+---
+
+<div class="atlas-seo">
+  <section aria-labelledby="how-world-clock-works">
+    <h2 id="how-world-clock-works">How this world clock works</h2>
+    <p>
+      Search a city or a country to see the current time there, beside your own. Add more than one
+      place when you need the time difference for a call, a flight, or a deadline. Every clock uses
+      your device's time and the IANA time zone for that place, so UTC offsets and daylight saving
+      time follow the rules in effect today.
+    </p>
+    <p>
+      Prefer a list to the globe?
+      <a href="/clocks/">Browse world clocks by country</a>, or read how
+      <a href="/guide/">time zones, UTC, GMT, and daylight saving</a> actually work.
+    </p>
+  </section>
+
+  <section aria-labelledby="current-time-cities">
+    <h2 id="current-time-cities">Current time in major cities</h2>
+    <p>
+      These are the places people look up most often. Search any of them above for the current local
+      time, the UTC offset, and whether daylight saving time is in effect.
+    </p>
+    <ul>
+      {
+        cityGroups.map((group) => (
+          <li>
+            <strong>{group.region}.</strong> {group.places}.
+          </li>
+        ))
+      }
+    </ul>
+    <p>
+      There is no single current time for the United States, Canada, Russia, or Australia. Pick the
+      city. For a zero offset, search UTC.
+    </p>
+  </section>
+
+  <section aria-labelledby="time-zone-questions">
+    <h2 id="time-zone-questions">Time zone questions</h2>
+    <dl>
+      {
+        homeFaqs.map((item) => (
+          <div>
+            <dt>{item.question}</dt>
+            <dd>{item.answer}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+</div>
