@@ -1,3 +1,4 @@
+import { readGoogleAnalyticsId } from "../lib/seo/googleAnalytics.ts";
 import { readGoogleSiteVerification } from "../lib/seo/googleSiteVerification.ts";
 import { SiteConfigSchema, type SiteConfig } from "./schema.ts";
 
@@ -22,6 +23,7 @@ export function buildSiteConfig(env: EnvLike, opts: { isLocalBuild?: boolean } =
     googleSiteVerification: readGoogleSiteVerification(
       env.PUBLIC_GOOGLE_SITE_VERIFICATION as string | undefined,
     ),
+    googleAnalyticsId: readGoogleAnalyticsId(env.PUBLIC_GA_MEASUREMENT_ID as string | undefined),
   };
   return SiteConfigSchema.parse(raw);
 }

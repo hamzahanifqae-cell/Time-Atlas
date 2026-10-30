@@ -86,6 +86,7 @@ See `.env.example` for the authoritative list and validation rules (also enforce
 | `PUBLIC_STAGING` | No (default `false`) | See above. |
 | `PUBLIC_GOOGLE_SITE_VERIFICATION` | No | Search Console HTML-tag token. Rendered as `google-site-verification`. Public, not a secret. Rebuild after setting it. |
 | `PUBLIC_ADSENSE_CLIENT_ID` | No | AdSense publisher ID. Omit to ship with no ad script. |
+| `PUBLIC_GA_MEASUREMENT_ID` | No | Google Analytics 4 measurement ID (`G-XXXXXXXX`). Omit to ship with no analytics script. Rebuild after setting it. |
 
 `npm run build:local` skips all of the above, for building/previewing locally without real
 production configuration.

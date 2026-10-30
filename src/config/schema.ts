@@ -113,6 +113,8 @@ export const SiteConfigSchema = z.object({
    * <meta name="google-site-verification">. Optional. Empty means the tag is omitted.
    */
   googleSiteVerification: z.string().optional(),
+  /** Google Analytics 4 measurement ID (G-XXXXXXXX). Optional. Empty means no analytics script. */
+  googleAnalyticsId: z.string().optional(),
 });
 
 export type SiteConfig = z.infer<typeof SiteConfigSchema>;

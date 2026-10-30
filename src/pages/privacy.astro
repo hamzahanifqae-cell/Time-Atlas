@@ -30,13 +30,28 @@ const lastUpdated = "2026-10-30";
     <section class="mt-8">
       <h2 class="text-xl font-semibold text-paper-100">Cookies, advertising, and analytics</h2>
       {
+        siteConfig.googleAnalyticsId && (
+          <p class="mt-2 text-paper-300">
+            Pages load Google Analytics to count visits, pages viewed, and general location and
+            device information. Google Analytics sets cookies for that measurement. Google
+            describes this in{" "}
+            <a
+              href="https://policies.google.com/technologies/partner-sites"
+              class="underline hover:text-paper-100"
+              rel="noopener noreferrer"
+              target="_blank">How Google uses information from sites or apps that use its services</a
+            >.
+          </p>
+        )
+      }
+      {
         siteConfig.adsenseClientId ? (
           <>
             <p class="mt-2 text-paper-300">
-              TimeAtlas does not run its own analytics. When advertising is enabled, pages load
-              Google AdSense, which can set cookies and use data to serve and measure ads. That
-              can include ads based on your visits to this site and other sites, depending on
-              your Google ad settings and the law where you are.
+              When advertising is enabled, pages load Google AdSense, which can set cookies and
+              use data to serve and measure ads. That can include ads based on your visits to
+              this site and other sites, depending on your Google ad settings and the law where
+              you are.
             </p>
             <p class="mt-2 text-paper-300">
               Google describes this in{" "}
@@ -55,11 +70,13 @@ const lastUpdated = "2026-10-30";
             </p>
           </>
         ) : (
-          <p class="mt-2 text-paper-300">
-            This build does not load an advertising or analytics script, and TimeAtlas does not
-            set its own tracking cookies. Saved clock preferences stay in your browser's local
-            storage.
-          </p>
+          !siteConfig.googleAnalyticsId && (
+            <p class="mt-2 text-paper-300">
+              This build does not load an advertising or analytics script, and TimeAtlas does not
+              set its own tracking cookies. Saved clock preferences stay in your browser's local
+              storage.
+            </p>
+          )
         )
       }
     </section>
@@ -83,9 +100,17 @@ const lastUpdated = "2026-10-30";
         request to Google's servers for that font file, subject to Google's own privacy
         practices.
         {
-          siteConfig.adsenseClientId
-            ? " When advertising is enabled, the page also requests Google's AdSense script."
-            : " The clocks, search, and globe themselves do not call another third-party service."
+          siteConfig.googleAnalyticsId &&
+            " When analytics is enabled, the page also requests Google Analytics."
+        }
+        {
+          siteConfig.adsenseClientId &&
+            " When advertising is enabled, the page also requests Google's AdSense script."
+        }
+        {
+          !siteConfig.googleAnalyticsId &&
+            !siteConfig.adsenseClientId &&
+            " The clocks, search, and globe themselves do not call another third-party service."
         }
       </p>
     </section>
