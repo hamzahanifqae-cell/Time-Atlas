@@ -1,0 +1,206 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const title = "Countries That Don't Observe Daylight Saving Time";
+const description =
+  "Most of Asia and Africa do not observe daylight saving time. See which countries stay on standard time, which places still change their clocks, and how to check the current offset.";
+
+const faqs = [
+  {
+    question: "What countries don't observe daylight saving time?",
+    answer:
+      "Most countries do not observe daylight saving time. That includes nearly all of Asia and Africa, such as India, China, Japan, Indonesia, Pakistan, and the Gulf states, plus much of South America. The United States, Canada, and most of Europe still change their clocks, with exceptions such as Hawaii, most of Arizona, and parts of Australia.",
+  },
+  {
+    question: "Does India observe daylight saving time?",
+    answer:
+      "No. India stays on India Standard Time, UTC+5:30, all year. There is no seasonal clock change.",
+  },
+  {
+    question: "Does Japan observe daylight saving time?",
+    answer:
+      "No. Japan stays on Japan Standard Time, UTC+9, all year. South Korea, China, Singapore, Thailand, and Indonesia do not switch clocks either.",
+  },
+  {
+    question: "Which US states don't observe daylight saving time?",
+    answer:
+      "Hawaii does not observe daylight saving time. Most of Arizona does not either, but the Navajo Nation inside Arizona does. Puerto Rico, the US Virgin Islands, Guam, American Samoa, and the Northern Mariana Islands also stay on standard time.",
+  },
+  {
+    question: "Does Europe still use daylight saving time?",
+    answer:
+      "Yes. The United Kingdom and the countries of the European Union still move clocks forward in spring and back in autumn. They do not all share one local time: the UK, Portugal, and Ireland are an hour behind most of western and central Europe.",
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      headline: title,
+      description,
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} structuredData={structuredData}>
+  <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">
+      Countries that don't observe daylight saving time
+    </h1>
+    <p class="mt-3 text-paper-400">
+      Most of the world does not change its clocks for summer. Daylight saving time is mainly a
+      practice in Europe, North America, and parts of the Middle East and the southern Pacific.
+      The lists below are the stable pattern. A country can change the law, so the
+      <a href="/" class="underline hover:text-paper-100">world clock</a> is the check for today's offset.
+    </p>
+
+    <nav aria-label="On this page" class="mt-6 rounded-lg border border-navy-700 bg-navy-800/40 p-4 text-sm">
+      <p class="font-medium text-paper-200">On this page</p>
+      <ul class="mt-2 grid gap-1 text-paper-400 sm:grid-cols-2">
+        <li><a class="hover:text-paper-100 hover:underline" href="#no-dst">Where clocks do not change</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#still-dst">Where clocks still change</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#exceptions">Exceptions inside one country</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#stopped">Countries that stopped</a></li>
+        <li><a class="hover:text-paper-100 hover:underline" href="#questions">Common questions</a></li>
+      </ul>
+    </nav>
+
+    <section class="mt-8">
+      <h2 id="no-dst" class="text-xl font-semibold text-paper-100">Where clocks do not change</h2>
+      <p class="mt-2 text-paper-300">
+        These places stay on the same UTC offset all year. Search any of them on the world clock
+        and the offset you see in January is the offset you see in July.
+      </p>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-paper-300">
+        <li>
+          <strong class="text-paper-100">East and Southeast Asia.</strong>
+          China, Japan, South Korea, Taiwan, Hong Kong, Singapore, Malaysia, Indonesia,
+          Thailand, Vietnam, and the Philippines.
+          Japan is UTC+9. China uses one national time, UTC+8, despite the country's width.
+        </li>
+        <li>
+          <strong class="text-paper-100">South Asia.</strong>
+          India (UTC+5:30), Sri Lanka (UTC+5:30), Nepal (UTC+5:45), Pakistan (UTC+5), and
+          Bangladesh (UTC+6). None of these move the clocks for summer.
+        </li>
+        <li>
+          <strong class="text-paper-100">The Gulf and much of the Middle East.</strong>
+          The United Arab Emirates, Saudi Arabia, Qatar, Kuwait, Bahrain, and Oman stay on
+          their standard offsets. Dubai and Riyadh do not "spring forward."
+        </li>
+        <li>
+          <strong class="text-paper-100">Most of Africa.</strong>
+          Nigeria, Kenya, South Africa, Ghana, Ethiopia, Tanzania, and the great majority of
+          other African countries do not observe daylight saving. A few places have used it in
+          the past or on an unusual calendar, so a live clock is safer than a memory of the rule.
+        </li>
+        <li>
+          <strong class="text-paper-100">Much of Latin America.</strong>
+          Brazil and Argentina do not currently switch. Mexico ended daylight saving for most of
+          the country in 2022. Some cities along Mexico's northern border still follow the US
+          change so they stay aligned with their neighbors.
+        </li>
+      </ul>
+    </section>
+
+    <section class="mt-8">
+      <h2 id="still-dst" class="text-xl font-semibold text-paper-100">Where clocks still change</h2>
+      <p class="mt-2 text-paper-300">
+        Daylight saving is still the rule across most of Europe and North America, and in parts
+        of the southern hemisphere during their summer.
+      </p>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-paper-300">
+        <li>
+          <strong class="text-paper-100">Europe.</strong>
+          The UK, Ireland, and the European Union still change clocks. The UK, Portugal, and
+          Ireland are on Western European time. Spain, France, and Germany are an hour ahead of
+          London in both winter and summer.
+        </li>
+        <li>
+          <strong class="text-paper-100">United States and Canada.</strong>
+          Most states and provinces change clocks on the same weekends. The next section lists
+          the places that do not.
+        </li>
+        <li>
+          <strong class="text-paper-100">Parts of Australia, New Zealand, and Chile.</strong>
+          New South Wales, Victoria, Tasmania, the Australian Capital Territory, and South
+          Australia observe daylight saving. New Zealand and Chile do too. Their summer falls
+          during the northern winter, so the clocks are on the opposite schedule from London or
+          New York.
+        </li>
+      </ul>
+    </section>
+
+    <section class="mt-8">
+      <h2 id="exceptions" class="text-xl font-semibold text-paper-100">Exceptions inside one country</h2>
+      <p class="mt-2 text-paper-300">
+        A country name is not always enough. These are the exceptions people trip over when they
+        compare times.
+      </p>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-paper-300">
+        <li>
+          <strong class="text-paper-100">Hawaii</strong> does not observe daylight saving time. It
+          stays on Hawaii-Aleutian standard time.
+        </li>
+        <li>
+          <strong class="text-paper-100">Arizona</strong> mostly does not observe it. The Navajo
+          Nation, which crosses into Arizona, does. A meeting "in Arizona" can still shift if the
+          other person is on Navajo time.
+        </li>
+        <li>
+          <strong class="text-paper-100">Queensland, Western Australia, and the Northern Territory</strong>
+          do not observe daylight saving, while Sydney and Melbourne do. In winter, Sydney and
+          Brisbane match. In the Australian summer, Sydney is one hour ahead of Brisbane.
+        </li>
+        <li>
+          <strong class="text-paper-100">Saskatchewan</strong> stays on central standard time and
+          does not switch with the rest of Canada. Yukon stays on UTC−7 year-round.
+        </li>
+      </ul>
+    </section>
+
+    <section class="mt-8">
+      <h2 id="stopped" class="text-xl font-semibold text-paper-100">Countries that stopped switching</h2>
+      <p class="mt-2 text-paper-300">
+        Several large countries used daylight saving and then abolished the seasonal change.
+        Russia has not switched clocks since 2014. Turkey stays on UTC+3 all year. Brazil no
+        longer runs a summer-time period. Those older habits are why a printed schedule from a
+        decade ago can be wrong by an hour.
+      </p>
+      <p class="mt-2 text-paper-300">
+        TimeAtlas does not keep a private list of laws. Each clock uses the IANA time zone for
+        that city, as implemented by your browser, including a recent start or end of daylight
+        saving. The
+        <a href="/guide/#dst" class="underline hover:text-paper-100">time zone guide</a>
+        explains how that offset is chosen, and the
+        <a href="/clocks/" class="underline hover:text-paper-100">world clocks</a>
+        list every country in the dataset.
+      </p>
+    </section>
+
+    <section class="mt-8">
+      <h2 id="questions" class="text-xl font-semibold text-paper-100">Common questions</h2>
+      <dl class="mt-4 space-y-5">
+        {
+          faqs.map((item) => (
+            <div>
+              <dt class="font-semibold text-paper-100">{item.question}</dt>
+              <dd class="mt-1 text-paper-300">{item.answer}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+  </article>
+</Layout>

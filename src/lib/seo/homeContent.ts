@@ -25,6 +25,11 @@ export const homeFaqs = [
       "Yes. Offsets come from your browser's IANA time zone database, not a fixed number of hours. A city that observes daylight saving time shows the seasonal offset for the current date. Zones that do not observe it, including most of Asia and Africa, stay on standard time.",
   },
   {
+    question: "What countries don't observe daylight saving time?",
+    answer:
+      "Most countries do not. India, China, Japan, Indonesia, Pakistan, and the Gulf states stay on the same UTC offset all year, as do most countries in Africa and much of South America. The United States, Canada, and most of Europe still change their clocks, except for places such as Hawaii and most of Arizona.",
+  },
+  {
     question: "What does the time zone map show?",
     answer:
       "The globe is a time zone map with approximate day and night shading, so you can see where it is currently light or dark. It is a guide, not a precise sunrise and sunset calculator. If WebGL is unavailable, the same clocks and search work on a flat map.",
