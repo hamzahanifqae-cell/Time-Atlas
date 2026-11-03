@@ -1,8 +1,19 @@
-# Apache/cPanel: upload this hidden file alongside index.html and 404.html.
-# Requires AllowOverride FileInfo; other hosts must set their own 404 handler.
+# Apache/cPanel for https://time-atlas.online/
+# The host redirects below are specific to this production domain.
+# Do not copy them onto a staging host.
 ErrorDocument 404 /404.html
 
-# Optional conventional sitemap alias; the canonical URL is sitemap-index.xml.
-<IfModule mod_alias.c>
-  RedirectMatch 302 ^/sitemap\.xml$ /sitemap-index.xml
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # One host: https://time-atlas.online/ (www and plain HTTP are duplicates).
+  RewriteCond %{HTTP_HOST} ^www\.time-atlas\.online$ [NC]
+  RewriteRule ^ https://time-atlas.online%{REQUEST_URI} [L,R=301]
+
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://time-atlas.online%{REQUEST_URI} [L,R=301]
+
+  # Permanent alias. Submit /sitemap-index.xml, not /sitemap.xml.
+  RewriteRule ^sitemap\.xml$ https://time-atlas.online/sitemap-index.xml [L,R=301]
 </IfModule>

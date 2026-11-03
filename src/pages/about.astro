@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/seo/Breadcrumbs.astro";
 import { siteConfig } from "../config/site";
 ---
 
@@ -8,6 +9,7 @@ import { siteConfig } from "../config/site";
   description="TimeAtlas is a free world clock and time zone map. See how current local time, UTC offsets, and city search work, and where the data comes from."
 >
   <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About", href: "/about/" }]} />
     <h1 class="text-3xl font-semibold tracking-tight text-paper-100">About TimeAtlas</h1>
     <p class="mt-3 text-paper-400">Explore the world. Find your time.</p>
 
@@ -17,7 +19,11 @@ import { siteConfig } from "../config/site";
         TimeAtlas is a free world clock and time zone converter: search a city or country, see
         its current local time next to yours, compare the time difference, and look places up
         on an interactive time zone map. It's built for planning calls across time zones — the
-        globe is there to make that understandable, not as a novelty on its own.
+        globe is there to make that understandable, not as a novelty on its own. How that
+        comparison handles daylight saving and a date change is written up on the
+        <a href="/time-difference/" class="underline hover:text-paper-100">time difference</a>
+        page, with a few city zones on
+        <a href="/time/" class="underline hover:text-paper-100">time in major cities</a>.
       </p>
       <p class="mt-2 text-paper-300">
         Almost everything runs in your browser. Search, clocks, time-zone math, comparisons,

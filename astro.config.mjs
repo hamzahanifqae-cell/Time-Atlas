@@ -8,6 +8,7 @@ import sitemap from '@astrojs/sitemap';
 
 import { buildSiteConfig } from './src/config/fromEnv.ts';
 import { assertReleaseReady } from './src/config/site-node.ts';
+import { isIndexableSitemapUrl } from './src/lib/seo/sitemapFilter.ts';
 
 const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 const env = loadEnv(mode, process.cwd(), '');
@@ -28,9 +29,19 @@ const site = config.productionOrigin ?? undefined;
 export default defineConfig({
   site,
   trailingSlash: "always",
+  // Keep spaces between links and the words around them. The default compressor
+  // trims those spaces out of the visible sentence.
+  compressHTML: false,
   integrations: [
     react(),
-    ...(site ? [sitemap()] : []),
+    ...(site
+      ? [
+          sitemap({
+            filter: isIndexableSitemapUrl,
+            // Omit lastmod. A build timestamp would claim every page changed on every deploy.
+          }),
+        ]
+      : []),
   ],
 
   vite: {

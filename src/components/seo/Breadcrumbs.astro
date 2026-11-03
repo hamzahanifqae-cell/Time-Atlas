@@ -1,0 +1,50 @@
+---
+import { siteOrigin } from "../../config/site";
+
+export interface Crumb {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.label,
+    item: new URL(item.href, siteOrigin).toString(),
+  })),
+};
+const json = JSON.stringify(structuredData).replace(/</g, "\\u003c");
+---
+
+<nav aria-label="Breadcrumb" class="mb-4 text-sm text-paper-600">
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+    {
+      items.map((item, index) => {
+        const current = index === items.length - 1;
+        return (
+          <li class="flex items-center gap-2">
+            {index > 0 && <span aria-hidden="true">/</span>}
+            {current ? (
+              <span class="text-paper-300" aria-current="page">
+                {item.label}
+              </span>
+            ) : (
+              <a href={item.href} class="underline decoration-navy-600 underline-offset-2 hover:text-paper-100">
+                {item.label}
+              </a>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={json} />

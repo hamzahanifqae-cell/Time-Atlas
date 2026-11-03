@@ -1,21 +1,23 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
+import { siteOrigin } from "../../config/site";
 
+const title = "Time Zones, UTC, GMT, and Daylight Saving";
+const description =
+  "How time zones, UTC, GMT, and daylight saving time work, and how a world clock decides the current UTC offset for a city.";
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Article",
-  headline: "Time zones, UTC, GMT, and daylight saving time",
-  description:
-    "How time zones, UTC, GMT, and daylight saving time work, and what a world clock's offset actually means.",
+  "@type": "WebPage",
+  name: title,
+  description,
+  url: new URL("/guide/", siteOrigin).toString(),
 };
 ---
 
-<Layout
-  title="Time Zones, UTC, GMT, and Daylight Saving"
-  description="How time zones, UTC, GMT, and daylight saving time work, and how a world clock decides the current UTC offset for a city."
-  structuredData={structuredData}
->
+<Layout title={title} description={description} structuredData={structuredData}>
   <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Time zones", href: "/guide/" }]} />
     <h1 class="text-3xl font-semibold tracking-tight text-paper-100">
       Time zones, UTC, GMT, and daylight saving
     </h1>
@@ -23,6 +25,8 @@ const structuredData = {
       A plain explanation of how clocks around the world work: what a time zone is, how UTC and
       GMT relate, when daylight saving time changes the offset, and what TimeAtlas can promise.
       To see a live clock, use the <a href="/" class="underline hover:text-paper-100">world clock</a>.
+      To compare cities, including a date change, see the
+      <a href="/time-difference/" class="underline hover:text-paper-100">time difference between cities</a>.
     </p>
 
     <nav aria-label="On this page" class="mt-6 rounded-lg border border-navy-700 bg-navy-800/40 p-4 text-sm">

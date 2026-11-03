@@ -5,19 +5,20 @@ import HomeGuide from "../components/seo/HomeGuide.astro";
 import { siteOrigin } from "../config/site";
 import { HOME_DESCRIPTION, HOME_TITLE, homeFaqs } from "../lib/seo/homeContent";
 
+const canonical = new URL("/", siteOrigin).toString();
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebSite",
       name: "TimeAtlas",
-      url: siteOrigin,
+      url: canonical,
       description: HOME_DESCRIPTION,
     },
     {
       "@type": "WebApplication",
       name: "TimeAtlas World Clock",
-      url: siteOrigin,
+      url: canonical,
       applicationCategory: "UtilitiesApplication",
       operatingSystem: "Any",
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -44,7 +45,7 @@ const structuredData = {
       </h1>
       <p>
         Check the current time in any city, compare the time difference, and convert time zones on a
-        live map.
+        live map. Free to use in the browser.
       </p>
     </div>
     <Experience client:load />

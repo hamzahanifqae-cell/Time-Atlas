@@ -12,7 +12,7 @@ export const homeFaqs = [
   {
     question: "How do I convert a time zone or see the time difference?",
     answer:
-      "Add each city to the comparison. The clocks stay aligned to your device's time, so you can read the time difference between them — for a meeting, a flight, or a deadline — with daylight saving applied where that city uses it.",
+      "Add each city to the comparison. The clocks stay aligned to your device's time, so you can read the time difference between them — for a meeting, a flight, or a deadline — with daylight saving applied where that city uses it. Saved cities stay in this browser and are not separate web addresses. The time difference page explains date changes and the weeks when daylight saving changes the hour gap.",
   },
   {
     question: "What is the difference between UTC and GMT?",
@@ -39,18 +39,48 @@ export const homeFaqs = [
 export const cityGroups = [
   {
     region: "Americas",
-    places: "New York, Los Angeles, Chicago, Toronto, Mexico City, and São Paulo",
+    places: [
+      { name: "New York", href: "/time/new-york/" },
+      { name: "Los Angeles", href: "/time/los-angeles/" },
+      { name: "Chicago" },
+      { name: "Toronto" },
+      { name: "Mexico City" },
+      { name: "São Paulo" },
+    ],
   },
   {
     region: "Europe and Africa",
-    places: "London, Paris, Berlin, Madrid, Istanbul, and Johannesburg",
+    places: [
+      { name: "London", href: "/time/london/" },
+      { name: "Paris" },
+      { name: "Berlin" },
+      { name: "Madrid" },
+      { name: "Istanbul" },
+      { name: "Johannesburg" },
+    ],
   },
   {
     region: "Middle East and South Asia",
-    places: "Dubai, Riyadh, Mumbai, Delhi, Karachi, and Dhaka",
+    places: [
+      { name: "Dubai", href: "/time/dubai/" },
+      { name: "Riyadh" },
+      { name: "Mumbai", href: "/time/mumbai/" },
+      { name: "Delhi" },
+      { name: "Karachi" },
+      { name: "Dhaka" },
+    ],
   },
   {
     region: "Asia-Pacific",
-    places: "Singapore, Hong Kong, Tokyo, Seoul, Bangkok, Manila, Jakarta, and Sydney",
+    places: [
+      { name: "Singapore" },
+      { name: "Hong Kong" },
+      { name: "Tokyo", href: "/time/tokyo/" },
+      { name: "Seoul" },
+      { name: "Bangkok" },
+      { name: "Manila" },
+      { name: "Jakarta" },
+      { name: "Sydney", href: "/time/sydney/" },
+    ],
   },
 ] as const;

@@ -1,5 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
+import { siteOrigin } from "../../config/site";
 
 const title = "Countries That Don't Observe Daylight Saving Time";
 const description =
@@ -37,9 +39,10 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Article",
-      headline: title,
+      "@type": "WebPage",
+      name: title,
       description,
+      url: new URL("/daylight-saving/", siteOrigin).toString(),
     },
     {
       "@type": "FAQPage",
@@ -55,6 +58,12 @@ const structuredData = {
 
 <Layout title={title} description={description} structuredData={structuredData}>
   <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <Breadcrumbs
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Daylight saving time", href: "/daylight-saving/" },
+      ]}
+    />
     <h1 class="text-3xl font-semibold tracking-tight text-paper-100">
       Countries that don't observe daylight saving time
     </h1>
@@ -183,9 +192,13 @@ const structuredData = {
         that city, as implemented by your browser, including a recent start or end of daylight
         saving. The
         <a href="/guide/#dst" class="underline hover:text-paper-100">time zone guide</a>
-        explains how that offset is chosen, and the
+        explains how that offset is chosen, the
         <a href="/clocks/" class="underline hover:text-paper-100">world clocks</a>
-        list every country in the dataset.
+        list every country in the dataset, and
+        <a href="/time/" class="underline hover:text-paper-100">time in major cities</a>
+        shows the offset on sample dates for a few places with different rules. The
+        <a href="/time-difference/" class="underline hover:text-paper-100">time difference</a>
+        page covers the weeks when two cities that both change clocks are a different number of hours apart.
       </p>
     </section>
 

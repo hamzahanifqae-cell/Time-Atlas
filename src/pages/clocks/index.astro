@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
 import WorldClocksBrowser from "../../components/clocks/WorldClocksBrowser.tsx";
 ---
 
@@ -8,11 +9,15 @@ import WorldClocksBrowser from "../../components/clocks/WorldClocksBrowser.tsx";
   description="Current local time by country and city. Browse a world clock for every place TimeAtlas covers, with UTC offsets and daylight saving, without the 3D globe."
 >
   <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "World clocks", href: "/clocks/" }]} />
     <h1 class="text-3xl font-semibold tracking-tight text-paper-100">World clocks by country</h1>
     <p class="mt-2 max-w-2xl text-paper-400">
       Current local time for every city and country in TimeAtlas. Search a place to see its
       time, UTC offset, and daylight saving status — the same clocks as the homepage, without
-      the 3D globe. Countries with more than one time zone list each zone separately.
+      the 3D globe. Countries with more than one time zone list each zone separately. Saved
+      cities stay in this browser and are not separate pages. For the hour gap and date change,
+      read <a href="/time-difference/" class="underline hover:text-paper-100">the time difference between cities</a>
+      or open a city page from <a href="/time/" class="underline hover:text-paper-100">time in major cities</a>.
     </p>
     <div class="mt-6">
       <WorldClocksBrowser client:load />

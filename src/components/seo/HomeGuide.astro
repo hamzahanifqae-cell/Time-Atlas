@@ -14,7 +14,8 @@ import { cityGroups, homeFaqs } from "../../lib/seo/homeContent";
     <p>
       Prefer a list to the globe?
       <a href="/clocks/">Browse world clocks by country</a>, read how
-      <a href="/guide/">time zones, UTC, and GMT</a> work, or see
+      <a href="/guide/">time zones, UTC, and GMT</a> work, see
+      <a href="/time-difference/">how the time difference between cities works</a>, or see
       <a href="/daylight-saving/">which countries don't observe daylight saving time</a>.
     </p>
   </section>
@@ -22,14 +23,23 @@ import { cityGroups, homeFaqs } from "../../lib/seo/homeContent";
   <section aria-labelledby="current-time-cities">
     <h2 id="current-time-cities">Current time in major cities</h2>
     <p>
-      These are the places people look up most often. Search any of them above for the current local
-      time, the UTC offset, and whether daylight saving time is in effect.
+      These are the places people look up most often. Cities with a link have a short page for the
+      time zone, daylight saving, and which place the name refers to. Search any other city above
+      for the current local time. The full list of those pages is
+      <a href="/time/">time in major cities</a>.
     </p>
     <ul>
       {
         cityGroups.map((group) => (
           <li>
-            <strong>{group.region}.</strong> {group.places}.
+            <strong>{group.region}.</strong>{" "}
+            {group.places.map((place, index) => (
+              <>
+                {index > 0 && (index === group.places.length - 1 ? ", and " : ", ")}
+                {"href" in place && place.href ? <a href={place.href}>{place.name}</a> : place.name}
+              </>
+            ))}
+            .
           </li>
         ))
       }
