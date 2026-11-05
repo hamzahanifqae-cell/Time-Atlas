@@ -100,6 +100,23 @@ In order:
 
 Do not buy links, trade links, or submit the site to batches of directories. The useful distribution is ordinary: the daylight-saving page and the time-difference page answer specific questions, and the pages link to each other. Share those URLs where the answer is actually relevant.
 
+## Second pass (5 November 2026)
+
+Baseline supplied for `/daylight-saving/` from a page-filtered Search Console export. The export’s date range was not included, so a later comparison needs that same range length and the same page and query group. Zero clicks at an average position near 10 is a snippet and answer-clarity problem, not evidence of an indexing failure.
+
+| URL | Impressions | Clicks | Average position | Top reported query |
+| --- | --- | --- | --- | --- |
+| `/daylight-saving/` | 204 | 0 | 9.85 | “what countries don’t do daylight savings” — 20 impressions, average position 11 |
+| `/guide/` | 15 | not supplied | 24.93 | No page-filtered queries were supplied. Intent stays a hypothesis: how time zones and daylight saving work. |
+
+Changes in this pass:
+
+- `/daylight-saving/` title and H1 now ask “Which countries don’t observe daylight saving time?” The first paragraph answers that. A table separates places that do not change clocks, places that stopped, and places where the rule varies. Counts are explained and not collapsed into one number. Sources and a 5 November 2026 checked date are on the page. The URL is unchanged.
+- `/guide/` already linked to that page in the daylight-saving section. A second link was added where the guide says a country can adopt or abolish a clock change.
+- `/clocks` and `/clocks/` were checked on the live site. No file change. `/clocks` returns 301 to `https://time-atlas.online/clocks/`. `/clocks/` returns 200, with a self-canonical of that URL. The sitemap contains `/clocks/` and not the no-slash URL. Internal links already use `/clocks/`. The project’s `trailingSlash: "always"` policy and Apache’s directory redirect agree.
+
+After deployment, in Search Console, compare `/daylight-saving/` only with the baseline above: impressions, clicks, CTR, and average position for the page, plus the query “what countries don’t do daylight savings” and close variants. Use a period of the same length as the original export. Do not request indexing again for this URL if a request is already queued.
+
 ## Deploy
 
 These edits are local only. They are not committed and not on the server. After a commit and push to `main`, the cPanel sequence that has worked for this site is:
