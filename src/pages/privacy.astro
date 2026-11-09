@@ -1,11 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Breadcrumbs from "../components/seo/Breadcrumbs.astro";
+import PrivacyChoices from "../components/seo/PrivacyChoices.astro";
 import { siteConfig } from "../config/site";
-const lastUpdated = "2026-10-30";
+const lastUpdated = "2026-11-09";
 ---
 
-<Layout title="Privacy policy" description="How TimeAtlas handles data: what's stored locally in your browser, and what a typical hosting log records.">
+<Layout title="Privacy policy" description="How TimeAtlas handles local preferences, Google Analytics, Google AdSense cookies, and hosting logs.">
   <article class="mx-auto max-w-2xl px-4 py-10 sm:px-6">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Privacy policy", href: "/privacy/" }]} />
     <h1 class="text-3xl font-semibold tracking-tight text-paper-100">Privacy policy</h1>
@@ -50,26 +51,32 @@ const lastUpdated = "2026-10-30";
         siteConfig.adsenseClientId ? (
           <>
             <p class="mt-2 text-paper-300">
-              When advertising is enabled, pages load Google AdSense, which can set cookies and
-              use data to serve and measure ads. That can include ads based on your visits to
-              this site and other sites, depending on your Google ad settings and the law where
-              you are.
+              Third-party vendors, including Google, use cookies to serve ads based on earlier
+              visits to this site or other sites. Google's advertising cookies help Google and its
+              partners select ads based on those visits. TimeAtlas does not use another advertising
+              vendor. The only advertising script this build loads is Google AdSense.
             </p>
             <p class="mt-2 text-paper-300">
-              Google describes this in{" "}
+              You can control ad personalization, including turning personalized ads off, at{" "}
+              <a
+                href="https://myadcenter.google.com/"
+                class="underline hover:text-paper-100"
+                rel="noopener noreferrer"
+                target="_blank">Google's My Ad Center</a
+              >. Google also describes this in{" "}
               <a
                 href="https://policies.google.com/technologies/ads"
                 class="underline hover:text-paper-100"
                 rel="noopener noreferrer"
                 target="_blank">How Google uses information from sites or apps that use its services</a
-              >. You can control ad personalization in{" "}
-              <a
-                href="https://adssettings.google.com/"
-                class="underline hover:text-paper-100"
-                rel="noopener noreferrer"
-                target="_blank">Google's ad settings</a
               >.
             </p>
+            <p class="mt-2 text-paper-300">
+              Visitors in the EEA, UK, and Switzerland should also get Google's European regulations
+              message when that message is published in AdSense. Use the button below to reopen those
+              choices. If the consent script is not available, the button says so instead of doing nothing.
+            </p>
+            <PrivacyChoices />
           </>
         ) : (
           !siteConfig.googleAnalyticsId && (
@@ -117,13 +124,20 @@ const lastUpdated = "2026-10-30";
       </p>
     </section>
 
-    {siteConfig.contactEmail && (
-      <section class="mt-8">
-        <h2 class="text-xl font-semibold text-paper-100">Questions</h2>
-        <p class="mt-2 text-paper-300">
-          Email <a href={`mailto:${siteConfig.contactEmail}`} class="underline hover:text-paper-100">{siteConfig.contactEmail}</a> with questions about this page.
-        </p>
-      </section>
-    )}
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">Questions</h2>
+      <p class="mt-2 text-paper-300">
+        The publisher is named on the <a href="/contact/" class="underline hover:text-paper-100">contact page</a>.
+        {
+          siteConfig.contactEmail && (
+            <>
+              {" "}Email{" "}
+              <a href={`mailto:${siteConfig.contactEmail}`} class="underline hover:text-paper-100">{siteConfig.contactEmail}</a>
+              {" "}with questions about this page.
+            </>
+          )
+        }
+      </p>
+    </section>
   </article>
 </Layout>

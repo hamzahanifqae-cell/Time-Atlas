@@ -1,4 +1,6 @@
 ---
+import PrivacyChoices from "../seo/PrivacyChoices.astro";
+
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const year = new Date().getUTCFullYear();
 const links = [
@@ -8,6 +10,7 @@ const links = [
   { href: "/guide/", label: "Time Zone Guide" },
   { href: "/daylight-saving/", label: "Daylight Saving Time" },
   { href: "/about/", label: "About" },
+  { href: "/contact/", label: "Contact" },
   { href: "/privacy/", label: "Privacy" },
   { href: "/terms/", label: "Terms" },
 ];
@@ -38,6 +41,7 @@ const links = [
             ))}
           </ul>
         </div>
+        <PrivacyChoices variant="footer" />
       </nav>
     </div>
     <p class="mt-8 border-t border-navy-700 pt-6 text-xs text-paper-600">

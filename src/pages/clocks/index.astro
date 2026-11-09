@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
 import WorldClocksBrowser from "../../components/clocks/WorldClocksBrowser.tsx";
+import { placePath, placeTitle, places } from "../../lib/seo/places";
 ---
 
 <Layout
@@ -12,12 +13,26 @@ import WorldClocksBrowser from "../../components/clocks/WorldClocksBrowser.tsx";
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "World clocks", href: "/clocks/" }]} />
     <h1 class="text-3xl font-semibold tracking-tight text-paper-100">World clocks by country</h1>
     <p class="mt-2 max-w-2xl text-paper-400">
-      Current local time for every city and country in TimeAtlas. Search a place to see its
-      time, UTC offset, and daylight saving status — the same clocks as the homepage, without
-      the 3D globe. Countries with more than one time zone list each zone separately. Saved
-      cities stay in this browser and are not separate pages. For the hour gap and date change,
-      read <a href="/time-difference/" class="underline hover:text-paper-100">the time difference between cities</a>
-      or open a city page from <a href="/time/" class="underline hover:text-paper-100">time in major cities</a>.
+      Search a city or country in the list below. The card shows that place's local time, its
+      UTC offset, and whether daylight saving applies on today's date. Countries with more than
+      one time zone list each zone separately. To see every clock on a chosen date, set the UTC
+      date in <a href="/#explorer-heading" class="underline hover:text-paper-100">Time explorer</a>
+      on the homepage, or read
+      <a href="/time-difference/" class="underline hover:text-paper-100">how the time difference works</a>.
+      Offsets come from the IANA zone, as explained in the
+      <a href="/guide/#utc" class="underline hover:text-paper-100">UTC and offsets</a> section of the guide.
+    </p>
+    <p class="mt-3 max-w-2xl text-paper-400">
+      These city pages explain the zone, the offset through the year, and an example meeting time:
+      {
+        places.map((place, index) => (
+          <>
+            {index > 0 && (index === places.length - 1 ? ", and " : ", ")}
+            <a href={placePath(place)} class="underline hover:text-paper-100">{placeTitle(place)}</a>
+          </>
+        ))
+      }
+      .
     </p>
     <div class="mt-6">
       <WorldClocksBrowser client:load />

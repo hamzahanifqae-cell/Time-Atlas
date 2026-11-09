@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
 import { siteOrigin } from "../../config/site";
 import { placeDescription, placePath, placeTitle, places, type Place } from "../../lib/seo/places";
-import { gapSentence, offsetLabel, SAMPLE_DATES } from "../../lib/seo/zoneSamples";
+import { exampleBusinessHours, gapSentence, offsetLabel, SAMPLE_DATES } from "../../lib/seo/zoneSamples";
 
 export function getStaticPaths() {
   return places.map((place) => ({ params: { slug: place.slug }, props: { place } }));
@@ -21,6 +21,13 @@ const samples = SAMPLE_DATES.map((date) => ({
   label: date.label,
   offset: offsetLabel(place.zone, date.ms),
 }));
+const meetingPartner = place.comparisons[0];
+const meetingExamples = meetingPartner
+  ? [
+      exampleBusinessHours(place.zone, meetingPartner.zone, 2026, 1, 15),
+      exampleBusinessHours(place.zone, meetingPartner.zone, 2026, 7, 15),
+    ]
+  : [];
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -82,6 +89,24 @@ const structuredData = {
         </tbody>
       </table>
     </section>
+
+    {
+      meetingPartner && (
+        <section class="mt-8">
+          <h2 class="text-xl font-semibold text-paper-100">Example meeting time</h2>
+          <p class="mt-2 text-paper-300">
+            These are example business hours, not a company's real opening time. Each line is 09:00 in {place.zone}, converted with IANA rules for that date.
+          </p>
+          <ul class="mt-3 list-disc space-y-1 pl-5 text-paper-300">
+            {meetingExamples.map((example) => (
+              <li>
+                {`${example.localLabel} in ${place.name} is ${example.otherLabel} in ${meetingPartner.name}.${example.dateChanged ? " Those are different calendar dates." : " Those are the same calendar date."}`}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
 
     <section class="mt-8">
       <h2 class="text-xl font-semibold text-paper-100">Gap with another place</h2>

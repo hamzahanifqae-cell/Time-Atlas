@@ -33,6 +33,26 @@ export function gapSentence(
 }
 
 /**
+ * 09:00 local on a fixed date, shown in another zone.
+ * Labeled by callers as an example, not a real office schedule.
+ */
+export function exampleBusinessHours(
+  localZone: string,
+  otherZone: string,
+  year = 2026,
+  month = 1,
+  day = 15,
+): { localLabel: string; otherLabel: string; dateChanged: boolean } {
+  const local = DateTime.fromObject({ year, month, day, hour: 9, minute: 0 }, { zone: localZone });
+  const other = local.setZone(otherZone);
+  return {
+    localLabel: local.toFormat("HH:mm 'on' d MMMM yyyy"),
+    otherLabel: other.toFormat("HH:mm 'on' d MMMM yyyy"),
+    dateChanged: local.toFormat("yyyy-MM-dd") !== other.toFormat("yyyy-MM-dd"),
+  };
+}
+
+/**
  * A fixed evening in New York, and the same instant in Tokyo.
  * Used to show a calendar-date change. This is not "the time right now".
  */

@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
+import { siteConfig } from "../../config/site";
+import { PUBLISHER_NAME } from "../../lib/seo/publisher";
+
+const title = "Contact";
+const description = siteConfig.contactEmail
+  ? `Contact ${PUBLISHER_NAME}, the publisher of TimeAtlas, at ${siteConfig.contactEmail}.`
+  : `Contact ${PUBLISHER_NAME}, the publisher of TimeAtlas. A public email address is not published yet.`;
+---
+
+<Layout title={title} description={description}>
+  <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Contact", href: "/contact/" }]} />
+    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">Contact</h1>
+    <p class="mt-3 text-paper-300">
+      {PUBLISHER_NAME} publishes TimeAtlas.
+    </p>
+    {
+      siteConfig.contactEmail ? (
+        <p class="mt-3 text-paper-300">
+          Email{" "}
+          <a href={`mailto:${siteConfig.contactEmail}`} class="underline hover:text-paper-100">{siteConfig.contactEmail}</a>.
+        </p>
+      ) : (
+        <p class="mt-3 text-paper-300">
+          A public email address is not shown here yet. It will be added only after the publisher
+          confirms that the address is approved for public use and is monitored.
+        </p>
+      )
+    }
+    <p class="mt-3 text-paper-300">
+      How the site handles cookies and ads is on the
+      <a href="/privacy/" class="underline hover:text-paper-100">privacy policy</a>.
+    </p>
+  </article>
+</Layout>

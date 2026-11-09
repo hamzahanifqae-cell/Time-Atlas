@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { placeDescription, places } from "../src/lib/seo/places";
 import { isIndexableSitemapUrl } from "../src/lib/seo/sitemapFilter";
-import { gapSentence, newYorkEveningInTokyo, offsetLabel, SAMPLE_DATES } from "../src/lib/seo/zoneSamples";
+import { exampleBusinessHours, gapSentence, newYorkEveningInTokyo, offsetLabel, SAMPLE_DATES } from "../src/lib/seo/zoneSamples";
 
 const january = SAMPLE_DATES[0].ms;
 const march = SAMPLE_DATES[1].ms;
@@ -105,6 +105,21 @@ describe("IANA sample offsets", () => {
     expect(gapSentence("Brisbane", "Sydney", "Australia/Sydney", "Australia/Brisbane", july)).toBe(
       "Brisbane matches Sydney",
     );
+  });
+
+  it("converts example 09:00 business hours, including a date change", () => {
+    const londonJanuary = exampleBusinessHours("Europe/London", "America/New_York", 2026, 1, 15);
+    expect(londonJanuary.localLabel).toBe("09:00 on 15 January 2026");
+    expect(londonJanuary.otherLabel).toBe("04:00 on 15 January 2026");
+    expect(londonJanuary.dateChanged).toBe(false);
+
+    const londonJuly = exampleBusinessHours("Europe/London", "America/New_York", 2026, 7, 15);
+    expect(londonJuly.otherLabel).toBe("04:00 on 15 July 2026");
+
+    const tokyoMorning = exampleBusinessHours("Asia/Tokyo", "America/New_York", 2026, 1, 15);
+    expect(tokyoMorning.localLabel).toBe("09:00 on 15 January 2026");
+    expect(tokyoMorning.otherLabel).toBe("19:00 on 14 January 2026");
+    expect(tokyoMorning.dateChanged).toBe(true);
   });
 
   it("shows an evening in New York as the next calendar date in Tokyo", () => {

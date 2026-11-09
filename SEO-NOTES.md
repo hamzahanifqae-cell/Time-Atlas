@@ -117,9 +117,19 @@ Changes in this pass:
 
 After deployment, in Search Console, compare `/daylight-saving/` only with the baseline above: impressions, clicks, CTR, and average position for the page, plus the query “what countries don’t do daylight savings” and close variants. Use a period of the same length as the original export. Do not request indexing again for this URL if a request is already queued.
 
+## AdSense readiness pass (9 November 2026)
+
+Confirmed this repository is the one deployed to https://time-atlas.online/. The live commit before this pass was `b6565bc`. Live `ads.txt` is `google.com, pub-4998739298306378, DIRECT, f08c47fec0942fa0`, and the homepage loads `adsbygoogle.js?client=ca-pub-4998739298306378`. Those were left unchanged.
+
+The intended public email was not written into the site or this file. It appears only after the publisher confirms it is approved for public use and is monitored, then sets `PUBLIC_CONTACT_EMAIL` and rebuilds. About and Contact name Hamza Hanif either way.
+
+The European regulations message is not published yet. A fresh browser context opened `https://time-atlas.online/?fc=alwaysshow&fctype=gdpr`. No consent banner appeared. Network showed AdSense and Analytics, and no Funding Choices script. Do not add a second CMP. Publish the message in AdSense → Privacy & messaging → European regulations, with the privacy policy URL `https://time-atlas.online/privacy/`. Then retest the homepage and `/clocks/` in Chrome Incognito with `?fc=alwaysshow&fctype=gdpr`.
+
+`/daylight-saving/` already had the country answer, title, sources, and guide links from the 5 November pass. It was not rewritten. `/clocks` already 301s to `/clocks/`.
+
 ## Deploy
 
-These edits are local only. They are not committed and not on the server. After a commit and push to `main`, the cPanel sequence that has worked for this site is:
+The daylight-saving pass is already on the server as commit `b6565bc`. The AdSense readiness edits above are local only. They are not committed and not on the server. After a commit and push to `main`, the cPanel sequence that has worked for this site is:
 
 ```
 cd ~/Time-Atlas && git pull origin main && source /opt/alt/alt-nodejs22/enable && npm run build:local && cp -a dist/. /home/techshakerco99/public_html/time-atlas.online/
