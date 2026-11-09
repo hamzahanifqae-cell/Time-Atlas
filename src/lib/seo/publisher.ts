@@ -1,7 +1,3 @@
-/**
- * The publisher name is confirmed for the public site.
- * Do not add a public email here. The address stays unset until the publisher
- * confirms it is approved for public use and is monitored, then sets
- * PUBLIC_CONTACT_EMAIL and rebuilds.
- */
+/** Confirmed publisher name and the public contact address. */
 export const PUBLISHER_NAME = "Hamza Hanif";
+export const PUBLISHER_EMAIL = "hamzahanifadsense@gmail.com";

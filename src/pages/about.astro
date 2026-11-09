@@ -1,8 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Breadcrumbs from "../components/seo/Breadcrumbs.astro";
-import { siteConfig } from "../config/site";
-import { PUBLISHER_NAME } from "../lib/seo/publisher";
+import { PUBLISHER_EMAIL, PUBLISHER_NAME } from "../lib/seo/publisher";
 ---
 
 <Layout
@@ -37,18 +36,9 @@ import { PUBLISHER_NAME } from "../lib/seo/publisher";
     <section class="mt-8">
       <h2 class="text-xl font-semibold text-paper-100">Who publishes this</h2>
       <p class="mt-2 text-paper-300">
-        {PUBLISHER_NAME} is the publisher of TimeAtlas.
-        {
-          siteConfig.contactEmail ? (
-            <>
-              {" "}The public contact address is{" "}
-              <a href={`mailto:${siteConfig.contactEmail}`} class="underline hover:text-paper-100">{siteConfig.contactEmail}</a>.
-            </>
-          ) : (
-            " A public email address is not published yet."
-          )
-        }
-        {" "}See the <a href="/contact/" class="underline hover:text-paper-100">contact page</a>.
+        {PUBLISHER_NAME} is the publisher of TimeAtlas. The public contact address is{" "}
+        <a href={`mailto:${PUBLISHER_EMAIL}`} class="underline hover:text-paper-100">{PUBLISHER_EMAIL}</a>.
+        See the <a href="/contact/" class="underline hover:text-paper-100">contact page</a>.
       </p>
     </section>
 
