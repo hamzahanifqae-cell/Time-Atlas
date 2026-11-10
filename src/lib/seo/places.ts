@@ -21,6 +21,12 @@ export interface Place {
   notTheSameAs: string;
   /** Why this zone is worth its own page. No clock reading, no fixed "current" offset. */
   explanation: string;
+  /** Document title when the default "Time in {place}" title does not match the query. */
+  title?: string;
+  /** Visible H1 when it should differ from "Time in {place}". */
+  heading?: string;
+  /** Short line under the explanation that points to the live clock. */
+  currentTimeNote?: string;
   comparisons: PlaceComparison[];
   faqs: PlaceFaq[];
 }
@@ -170,10 +176,27 @@ export const places: Place[] = [
     regionLabel: "Sydney, Australia",
     zone: "Australia/Sydney",
     notTheSameAs: "This is Sydney, New South Wales, not Sydney, Nova Scotia.",
+    title: "Sydney Time Zone: AEST or AEDT?",
+    heading: "Sydney time zone: AEST or AEDT?",
+    currentTimeNote:
+      "For the current time, search Sydney on the world clock. That clock uses your device's time and Australia/Sydney, so today shows AEST or AEDT. The dates below are examples, not the live minute.",
     explanation:
-      "Sydney uses Australia/Sydney. Daylight saving here is a southern-hemisphere summer, so the January sample is the larger offset and the July sample is standard time. Brisbane, Queensland, uses Australia/Brisbane and does not observe daylight saving. In southern summer Sydney is one hour ahead of Brisbane. In the southern winter the two match. Sydney, Nova Scotia, is in Canada and is not this zone.",
-    comparisons: [{ name: "Brisbane", zone: "Australia/Brisbane" }],
+      "Sydney's time zone is Australia/Sydney. In the southern winter the IANA abbreviation is AEST, Australian Eastern Standard Time, at UTC+10, as on 15 July 2026. In the southern summer it is AEDT, Australian Eastern Daylight Time, at UTC+11, as on 15 January 2026. Brisbane, Queensland, uses Australia/Brisbane and does not observe daylight saving. Sydney is one hour ahead of Brisbane on the January date and level with Brisbane on the July date. Sydney, Nova Scotia, is in Canada and is not this zone.",
+    comparisons: [
+      { name: "Brisbane", zone: "Australia/Brisbane" },
+      { name: "New York", zone: "America/New_York", href: "/time/new-york/" },
+    ],
     faqs: [
+      {
+        question: "Is Sydney AEST or AEDT?",
+        answer:
+          "Both, in different seasons. Australia/Sydney uses AEST, UTC+10, in the southern winter, and AEDT, UTC+11, in the southern summer. On 15 July 2026 the offset is UTC+10. On 15 January 2026 it is UTC+11.",
+      },
+      {
+        question: "What is Sydney's UTC offset in summer and winter?",
+        answer:
+          "At 12:00 UTC on 15 January 2026, Australia/Sydney is UTC+11. At 12:00 UTC on 15 July 2026, it is UTC+10. January is daylight saving there. July is standard time.",
+      },
       {
         question: "Does Sydney observe daylight saving time?",
         answer:
@@ -193,12 +216,19 @@ export function placeBySlug(slug: string): Place | undefined {
 }
 
 export function placeTitle(place: Place): string {
-  return `Time in ${place.regionLabel}`;
+  return place.title ?? `Time in ${place.regionLabel}`;
+}
+
+export function placeHeading(place: Place): string {
+  return place.heading ?? `Time in ${place.regionLabel}`;
 }
 
 export function placeDescription(place: Place): string {
   const january = offsetLabel(place.zone, SAMPLE_DATES[0].ms);
   const july = offsetLabel(place.zone, SAMPLE_DATES[2].ms);
+  if (place.slug === "sydney") {
+    return `Sydney's time zone is Australia/Sydney: ${january} AEDT on 15 January 2026 and ${july} AEST on 15 July 2026. This is Sydney, New South Wales, not Sydney, Nova Scotia.`;
+  }
   return `${place.regionLabel} uses ${place.zone}. On 15 January 2026 the offset is ${january}. On 15 July 2026 it is ${july}. ${place.notTheSameAs}`;
 }
 

@@ -94,6 +94,27 @@ describe("IANA sample offsets", () => {
     );
   });
 
+  it("names Sydney AEST in July and AEDT in January, and rolls a morning into the previous New York date", () => {
+    const sydney = places.find((place) => place.slug === "sydney");
+    expect(sydney?.title).toBe("Sydney Time Zone: AEST or AEDT?");
+    expect(placeDescription(sydney!)).toContain("AEDT");
+    expect(placeDescription(sydney!)).toContain("AEST");
+    expect(placeDescription(sydney!)).not.toMatch(/\b\d{1,2}:\d{2}\s*(am|pm)\b/i);
+
+    const januaryMorning = exampleBusinessHours("Australia/Sydney", "America/New_York", 2026, 1, 15);
+    expect(januaryMorning.localLabel).toBe("09:00 on 15 January 2026");
+    expect(januaryMorning.otherLabel).toBe("17:00 on 14 January 2026");
+    expect(januaryMorning.dateChanged).toBe(true);
+
+    const julyMorning = exampleBusinessHours("Australia/Sydney", "America/New_York", 2026, 7, 15);
+    expect(julyMorning.otherLabel).toBe("19:00 on 14 July 2026");
+    expect(julyMorning.dateChanged).toBe(true);
+
+    const brisbaneJanuary = exampleBusinessHours("Australia/Sydney", "Australia/Brisbane", 2026, 1, 15);
+    expect(brisbaneJanuary.otherLabel).toBe("08:00 on 15 January 2026");
+    expect(brisbaneJanuary.dateChanged).toBe(false);
+  });
+
   it("puts Sydney one hour ahead of Brisbane in January and level in July", () => {
     expect(offsetLabel("Australia/Sydney", january)).toBe("UTC+11");
     expect(offsetLabel("Australia/Sydney", july)).toBe("UTC+10");

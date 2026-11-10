@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
 import { siteOrigin } from "../../config/site";
-import { placeDescription, placePath, placeTitle, places, type Place } from "../../lib/seo/places";
+import { placeDescription, placeHeading, placePath, placeTitle, places, type Place } from "../../lib/seo/places";
 import { exampleBusinessHours, gapSentence, offsetLabel, SAMPLE_DATES } from "../../lib/seo/zoneSamples";
 
 export function getStaticPaths() {
@@ -15,19 +15,20 @@ interface Props {
 
 const { place } = Astro.props;
 const title = placeTitle(place);
+const heading = placeHeading(place);
 const description = placeDescription(place);
 const canonical = new URL(placePath(place), siteOrigin).toString();
 const samples = SAMPLE_DATES.map((date) => ({
   label: date.label,
   offset: offsetLabel(place.zone, date.ms),
 }));
-const meetingPartner = place.comparisons[0];
-const meetingExamples = meetingPartner
-  ? [
-      exampleBusinessHours(place.zone, meetingPartner.zone, 2026, 1, 15),
-      exampleBusinessHours(place.zone, meetingPartner.zone, 2026, 7, 15),
-    ]
-  : [];
+const meetingExamples = place.comparisons.map((partner) => ({
+  partner,
+  examples: [
+    exampleBusinessHours(place.zone, partner.zone, 2026, 1, 15),
+    exampleBusinessHours(place.zone, partner.zone, 2026, 7, 15),
+  ],
+}));
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -58,9 +59,17 @@ const structuredData = {
         { label: place.regionLabel, href: placePath(place) },
       ]}
     />
-    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">Time in {place.regionLabel}</h1>
+    <h1 class="text-3xl font-semibold tracking-tight text-paper-100">{heading}</h1>
     <p class="mt-3 text-paper-400">{place.notTheSameAs} The IANA zone is <code class="tabular">{place.zone}</code>.</p>
     <p class="mt-3 text-paper-300">{place.explanation}</p>
+    {
+      place.currentTimeNote && (
+        <p class="mt-3 text-paper-300">
+          {place.currentTimeNote}{" "}
+          <a href="/" class="underline hover:text-paper-100">Open the world clock</a>.
+        </p>
+      )
+    }
 
     <section class="mt-8">
       <h2 class="text-xl font-semibold text-paper-100">Offset on three dates</h2>
@@ -91,19 +100,34 @@ const structuredData = {
     </section>
 
     {
-      meetingPartner && (
+      meetingExamples.length > 0 && (
         <section class="mt-8">
           <h2 class="text-xl font-semibold text-paper-100">Example meeting time</h2>
           <p class="mt-2 text-paper-300">
             These are example business hours, not a company's real opening time. Each line is 09:00 in {place.zone}, converted with IANA rules for that date.
           </p>
-          <ul class="mt-3 list-disc space-y-1 pl-5 text-paper-300">
-            {meetingExamples.map((example) => (
-              <li>
-                {`${example.localLabel} in ${place.name} is ${example.otherLabel} in ${meetingPartner.name}.${example.dateChanged ? " Those are different calendar dates." : " Those are the same calendar date."}`}
-              </li>
-            ))}
-          </ul>
+          {
+            meetingExamples.map(({ partner, examples }) => (
+              <div class="mt-4">
+                <h3 class="text-base font-semibold text-paper-100">
+                  {partner.href ? (
+                    <a href={partner.href} class="underline decoration-navy-600 underline-offset-2 hover:text-paper-100">
+                      {place.name} and {partner.name}
+                    </a>
+                  ) : (
+                    <span>{place.name} and {partner.name}</span>
+                  )}
+                </h3>
+                <ul class="mt-2 list-disc space-y-1 pl-5 text-paper-300">
+                  {examples.map((example) => (
+                    <li>
+                      {`${example.localLabel} in ${place.name} is ${example.otherLabel} in ${partner.name}.${example.dateChanged ? " Those are different calendar dates." : " Those are the same calendar date."}`}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
         </section>
       )
     }

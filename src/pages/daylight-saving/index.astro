@@ -13,10 +13,20 @@ const faqs = [
   {
     question: "Which countries don't observe daylight saving time?",
     answer:
-      "Most countries do not. In the 2026 observance lists checked for this page, China, Japan, India, Russia, Turkey, Brazil, and most of Africa and the Gulf do not change clocks. The United States, Canada, and Europe still do, except for places such as Hawaii, most of Arizona, much of Saskatchewan, and Yukon.",
+      "Most countries do not. In the 2026 observance lists checked for this page, China, Japan, India, Russia, Turkey, Brazil, and most of Africa and the Gulf do not change clocks. The United States and Europe still do, except for places such as Hawaii, most of Arizona, and Iceland. In Canada, Ontario, Quebec, and the Atlantic provinces still change. Yukon, much of Saskatchewan, and, since 1 November 2026, most of British Columbia, Alberta, and Manitoba do not.",
   },
-  {
-    question: "How many countries don't observe daylight saving time?",
+    {
+      question: "Which countries stopped changing clocks?",
+      answer:
+        "Pew Research Center lists Russia, Turkey, Iran, Jordan, and Syria among the places that ended seasonal clock changes in the previous decade. Its correction of 15 July 2026 says Brazil stopped in 2019. Argentina is not listed as changing clocks in 2026. In tzdb-2026e, the main zones for British Columbia, Alberta, and Manitoba have no further daylight-saving rule after 1 November 2026.",
+    },
+    {
+      question: "Where does daylight saving vary by region?",
+      answer:
+        "It varies in the United States, Canada, Mexico, Australia, and Chile. Hawaii and most of Arizona do not change clocks. The Navajo Nation does. Queensland, Western Australia, and the Northern Territory do not change. Sydney does.",
+    },
+    {
+      question: "How many countries don't observe daylight saving time?",
     answer:
       "There is no single official count. Pew Research Center's 2023 analysis of 193 UN member states, corrected on 15 July 2026, said only about a third practice daylight saving or another regular clock change. timeanddate.com's 2026 list, which includes territories and splits some countries, reports 178 places with no daylight saving and 70 where at least one location changes clocks. Those figures count different things, so this page does not turn either number into the number of countries.",
   },
@@ -71,9 +81,24 @@ const structuredData = {
     </h1>
     <p class="mt-3 text-lg text-paper-100">
       Most countries do not change their clocks for summer. China, Japan, India, Russia, Turkey,
-      Brazil, and most of Africa and the Gulf stay on the same offset all year. The United States,
-      Canada, and Europe still change clocks, with exceptions such as Hawaii, most of Arizona, much
-      of Saskatchewan, and Yukon.
+      Brazil, and most of Africa and the Gulf stay on the same offset all year. The United States
+      and Europe still change clocks, with exceptions such as Hawaii, most of Arizona, and Iceland.
+      In Canada, Ontario, Quebec, and the Atlantic provinces still change. Yukon, much of
+      Saskatchewan, and, since 1 November 2026, most of British Columbia, Alberta, and Manitoba do not.
+    </p>
+    <p class="mt-3 text-paper-300">
+      <a href="#where" class="underline hover:text-paper-100">Countries that stopped changing clocks</a>{" "}
+      include Russia, Turkey, Iran, Jordan, and Syria. Pew Research Center lists them among the
+      places that ended seasonal clock changes in the previous decade. Its correction of 15 July
+      2026 says Brazil stopped in 2019. Argentina is not listed as changing clocks in 2026. In
+      tzdb-2026e, the main zones for British Columbia, Alberta, and Manitoba have no further
+      daylight-saving rule after 1 November 2026.
+    </p>
+    <p class="mt-3 text-paper-300">
+      <a href="#varies" class="underline hover:text-paper-100">Daylight saving varies by region</a>{" "}
+      in the United States, Canada, Mexico, Australia, and Chile. Hawaii and most of Arizona do not
+      change clocks. The Navajo Nation does. Queensland, Western Australia, and the Northern
+      Territory do not change. Sydney does.
     </p>
     <p class="mt-3 text-paper-400">
       The table splits that answer into places that do not change clocks, places that stopped, and
@@ -177,7 +202,7 @@ const structuredData = {
             <tr class="border-b border-navy-800 align-top">
               <th scope="row" class="py-3 pr-4 font-medium text-paper-100">Canada</th>
               <td class="py-3 pr-4">Varies</td>
-              <td class="py-3">Most of Canada changes with the US dates. Much of Saskatchewan and Yukon do not. The 2026 list also shows small areas of British Columbia, Nunavut, Quebec, and Ontario staying on standard time. A Saskatchewan bill received royal assent on 14 May 2026, but the IANA notes say it takes effect only by a later order. This page does not treat that bill as already in force.</td>
+              <td class="py-3">Ontario, Quebec, and the Atlantic provinces still change on the US dates. In tzdb-2026e, the main zones for British Columbia, Alberta, and Manitoba make the 1 November 2026 change and then have no further daylight-saving rule: British Columbia stays on UTC−7, Alberta on UTC−6, and Manitoba on UTC−5. Yukon has not changed clocks since 2020 and stays on UTC−7. Much of Saskatchewan already stays on UTC−6. A Saskatchewan bill received royal assent on 14 May 2026. The 21 September 2026 note in that same file still says the new act takes effect only by a later order, so this page does not treat it as already in force. The 2026 observance list also shows small areas of Nunavut, Quebec, and Ontario staying on standard time.</td>
             </tr>
             <tr class="border-b border-navy-800 align-top">
               <th scope="row" class="py-3 pr-4 font-medium text-paper-100">Mexico</th>
@@ -187,7 +212,7 @@ const structuredData = {
             <tr class="border-b border-navy-800 align-top">
               <th scope="row" class="py-3 pr-4 font-medium text-paper-100">Australia</th>
               <td class="py-3 pr-4">Varies</td>
-              <td class="py-3">Queensland, Western Australia, and the Northern Territory do not change. The rest of the country does, on a southern-hemisphere summer. In that summer, Sydney is one hour ahead of Brisbane. In the Australian winter, Sydney and Brisbane match.</td>
+              <td class="py-3">Queensland, Western Australia, and the Northern Territory do not change. The rest of the country does, on a southern-hemisphere summer. In that summer, <a href="/time/sydney/" class="underline hover:text-paper-100">Sydney</a> is one hour ahead of Brisbane. In the Australian winter, Sydney and Brisbane match. Sydney's names for those offsets, AEST and AEDT, are on the Sydney time zone page.</td>
             </tr>
             <tr class="border-b border-navy-800 align-top">
               <th scope="row" class="py-3 pr-4 font-medium text-paper-100">Chile</th>
@@ -259,11 +284,13 @@ const structuredData = {
         </li>
       </ul>
       <p class="mt-3 text-paper-300">
-        Not verified here: the names of the Chilean locations that do not change clocks in 2026,
-        and whether every small Canadian border town matches the provincial summary. The US
-        Department of Transportation daylight-saving page was not retrieved during this check, so
-        the Hawaii and Arizona lines rely on the 2026 observance list and the IANA notes rather
-        than a quotation from that department.
+        On 10 November 2026 the Canada lines were compared again with tzdb-2026e. timeanddate.com's
+        2026 page could not be retrieved that day, so its 178 and 70 counts, and the Egypt,
+        Morocco, and Chile lines, were not re-read. Not verified here: the names of the Chilean
+        locations that do not change clocks in 2026, and whether every small Canadian border town
+        matches the provincial summary. The US Department of Transportation daylight-saving page
+        was not retrieved during this check, so the Hawaii and Arizona lines rely on the 2026
+        observance list and the IANA notes rather than a quotation from that department.
       </p>
       <p class="mt-3 text-paper-300">
         How a world clock chooses an offset is explained in the
