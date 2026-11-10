@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useStore } from "@nanostores/react";
 import { $referenceInstant, $mode, enterExplorer, returnToNow } from "../../stores/clock";
+import { useHydrated } from "../../lib/hooks/useHydrated";
 
 const MINUTES_PER_DAY = 24 * 60;
 
@@ -24,11 +25,13 @@ function formatUtcClock(minutes: number): string {
 }
 
 export default function TimeExplorer() {
+  const hydrated = useHydrated();
   const instant = useStore($referenceInstant);
   const mode = useStore($mode);
 
-  const dateValue = useMemo(() => isoDateUTC(instant), [instant]);
-  const minutesValue = useMemo(() => minutesOfDayUTC(instant), [instant]);
+  const dateValue = useMemo(() => (hydrated ? isoDateUTC(instant) : ""), [hydrated, instant]);
+  const minutesValue = useMemo(() => (hydrated ? minutesOfDayUTC(instant) : 0), [hydrated, instant]);
+  const clockLabel = hydrated ? formatUtcClock(minutesValue) : "––:–– UTC";
 
   function setFromParts(nextDate: string, nextMinutes: number) {
     const [y, m, d] = nextDate.split("-").map(Number);
@@ -77,7 +80,7 @@ export default function TimeExplorer() {
         <div className="flex-1">
           <label htmlFor="explorer-time" className="flex items-baseline justify-between text-xs font-medium text-paper-600">
             <span>Time of day (UTC)</span>
-            <span className="tabular text-sm text-paper-200">{formatUtcClock(minutesValue)}</span>
+            <span className="tabular text-sm text-paper-200">{clockLabel}</span>
           </label>
           <input
             id="explorer-time"
@@ -88,7 +91,7 @@ export default function TimeExplorer() {
             value={minutesValue}
             onChange={(e) => setFromParts(dateValue, Number(e.target.value))}
             className="mt-2 w-full accent-cyan-500"
-            aria-valuetext={formatUtcClock(minutesValue)}
+            aria-valuetext={clockLabel}
           />
         </div>
       </div>
