@@ -7,6 +7,17 @@ export type BoundaryCollection = FeatureCollection<Geometry, CountryBoundaryProp
 let citiesPromise: Promise<City[]> | null = null;
 let countriesPromise: Promise<Country[]> | null = null;
 let boundariesPromise: Promise<BoundaryCollection> | null = null;
+let cityByIdIndex: Map<number, City> | null = null;
+let countryByCodeIndex: Map<string, Country> | null = null;
+
+/** Clears in-flight dataset promises so a retry can start a new fetch after a timeout. */
+export function resetGeoLoadCaches() {
+  citiesPromise = null;
+  countriesPromise = null;
+  boundariesPromise = null;
+  cityByIdIndex = null;
+  countryByCodeIndex = null;
+}
 
 async function fetchJson<T>(url: string): Promise<T> {
   const res = await fetch(url);
@@ -48,7 +59,6 @@ export function getBoundaries(): Promise<BoundaryCollection> {
   return boundariesPromise;
 }
 
-let cityByIdIndex: Map<number, City> | null = null;
 export async function getCityById(id: number): Promise<City | undefined> {
   if (!cityByIdIndex) {
     const cities = await getCities();
@@ -57,7 +67,6 @@ export async function getCityById(id: number): Promise<City | undefined> {
   return cityByIdIndex.get(id);
 }
 
-let countryByCodeIndex: Map<string, Country> | null = null;
 export async function getCountryByCode(code: string): Promise<Country | undefined> {
   if (!countryByCodeIndex) {
     const countries = await getCountries();

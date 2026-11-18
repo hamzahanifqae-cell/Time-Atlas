@@ -16,10 +16,13 @@ until they're real:
    and the last-updated dates in `src/pages/privacy.astro` / `src/pages/terms.astro` updated)
    before a public launch — especially if you're subject to GDPR, CCPA, or similar, which this
    draft does not attempt to address.
-5. **Your actual hosting provider's logging practices**, to replace the generic hosting-logs
-   paragraph in `/privacy` with your host's specifics.
-6. **A hosting decision and account** (Netlify/Vercel/Cloudflare Pages/a plain static host —
-   see `DEPLOYMENT.md`). Nothing here provisions or pays for hosting.
+5. **Your actual hosting provider's logging practices** — `/privacy` no longer contains
+   unfinished “before a public launch” wording. It states that TimeAtlas is static and does
+   not publish the host's log fields or retention. Confirm with the host what is logged and
+   for how long if you want those specifics on the public page.
+6. **Hosting is already chosen for the live domain** (static files on the current web host;
+   see `DEPLOYMENT.md`). Still confirm the host's log retention before naming fields or a
+   retention period on `/privacy`.
 7. (Optional, later) **AdSense application details**, if you pursue that — see the "AdSense"
    section below. Nothing related to ads is implemented or enabled yet.
 

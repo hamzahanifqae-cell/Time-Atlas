@@ -46,13 +46,28 @@ export default function WorldClocksBrowser() {
   const announcement = useSelectionAnnouncement(selectedCity, selectedCountry);
 
   if (geo.status === "loading") {
-    return <p className="text-sm text-paper-600">Loading the full city and country index…</p>;
+    return (
+      <p className="text-sm text-paper-600" role="status" aria-live="polite">
+        Loading the full city and country index…
+      </p>
+    );
   }
   if (geo.status === "error") {
     return (
-      <p className="text-sm text-danger-400">
-        Couldn't load location data ({geo.error}). Try reloading the page.
-      </p>
+      <div className="rounded-2xl border border-danger-500/40 bg-danger-500/5 p-4" role="alert">
+        <p className="text-sm text-danger-400">
+          Couldn't load the city and country index
+          {geo.error ? ` (${geo.error})` : ""}. The introductory links above still work. You can
+          try again without reloading the whole page.
+        </p>
+        <button
+          type="button"
+          onClick={() => geo.retry()}
+          className="mt-3 rounded-md border border-cyan-600/50 bg-cyan-600/10 px-3 py-1.5 text-sm font-medium text-cyan-400 hover:bg-cyan-600/20"
+        >
+          Try again
+        </button>
+      </div>
     );
   }
 

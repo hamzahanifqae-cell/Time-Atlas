@@ -29,6 +29,17 @@ describe("city time pages", () => {
       expect(description.toLowerCase()).not.toContain("right now");
     }
   });
+
+  it("keeps each city explanation about its own zone rules, not a renamed template", () => {
+    const explanations = places.map((place) => place.explanation);
+    expect(new Set(explanations).size).toBe(places.length);
+    expect(places.find((place) => place.slug === "london")?.explanation).toContain("15 March 2026");
+    expect(places.find((place) => place.slug === "los-angeles")?.explanation).toContain("Pacific Standard Time");
+    expect(places.find((place) => place.slug === "dubai")?.explanation).toContain("UTC+4");
+    expect(places.find((place) => place.slug === "mumbai")?.explanation).toContain("03:30");
+    expect(places.find((place) => place.slug === "tokyo")?.explanation).toContain("14 July 2026");
+    expect(places.find((place) => place.slug === "sydney")?.explanation).toContain("AEST");
+  });
 });
 
 describe("IANA sample offsets", () => {
@@ -134,6 +145,9 @@ describe("IANA sample offsets", () => {
     expect(londonJanuary.otherLabel).toBe("04:00 on 15 January 2026");
     expect(londonJanuary.dateChanged).toBe(false);
 
+    const londonMarch = exampleBusinessHours("Europe/London", "America/New_York", 2026, 3, 15);
+    expect(londonMarch.otherLabel).toBe("05:00 on 15 March 2026");
+
     const londonJuly = exampleBusinessHours("Europe/London", "America/New_York", 2026, 7, 15);
     expect(londonJuly.otherLabel).toBe("04:00 on 15 July 2026");
 
@@ -141,6 +155,9 @@ describe("IANA sample offsets", () => {
     expect(tokyoMorning.localLabel).toBe("09:00 on 15 January 2026");
     expect(tokyoMorning.otherLabel).toBe("19:00 on 14 January 2026");
     expect(tokyoMorning.dateChanged).toBe(true);
+
+    const tokyoJuly = exampleBusinessHours("Asia/Tokyo", "America/New_York", 2026, 7, 15);
+    expect(tokyoJuly.otherLabel).toBe("20:00 on 14 July 2026");
   });
 
   it("shows an evening in New York as the next calendar date in Tokyo", () => {

@@ -3,10 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import Breadcrumbs from "../components/seo/Breadcrumbs.astro";
 import PrivacyChoices from "../components/seo/PrivacyChoices.astro";
 import { siteConfig } from "../config/site";
-const lastUpdated = "2026-11-09";
+const lastUpdated = "2026-11-18";
 ---
 
-<Layout title="Privacy policy" description="How TimeAtlas handles local preferences, Google Analytics, Google AdSense cookies, and hosting logs.">
+<Layout title="Privacy policy" description="How TimeAtlas handles local preferences, Google Analytics, Google AdSense cookies, and hosting request logs.">
   <article class="mx-auto max-w-2xl px-4 py-10 sm:px-6">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Privacy policy", href: "/privacy/" }]} />
     <h1 class="text-3xl font-semibold tracking-tight text-paper-100">Privacy policy</h1>
@@ -93,12 +93,20 @@ const lastUpdated = "2026-11-09";
     <section class="mt-8">
       <h2 class="text-xl font-semibold text-paper-100">Hosting logs</h2>
       <p class="mt-2 text-paper-300">
-        Like virtually all web hosting, the infrastructure serving this site will typically
-        keep ordinary request logs (such as IP address, requested URL, and timestamp) for
-        operational and security purposes, for a limited retention period, as is standard
-        practice for static web hosting. The specifics depend on {siteConfig.operatorName || "the operator's"}{" "}
-        chosen hosting provider and should be confirmed and detailed here before a public
-        launch.
+        TimeAtlas is a static website. The public pages are ordinary files. This project does
+        not run an application server, does not keep a visitor database, and does not write its
+        own request log for each page view.
+      </p>
+      <p class="mt-2 text-paper-300">
+        The web server that delivers those files may still keep ordinary request logs for
+        operations and security, as most hosts do. This repository does not set or publish the
+        host's log fields or retention period.
+        {
+          siteConfig.operatorName
+            ? ` Questions about the host used by ${siteConfig.operatorName} belong with the publisher.`
+            : " Questions about the host belong with the publisher."
+        }
+        {" "}Use the <a href="/contact/" class="underline hover:text-paper-100">contact page</a>.
       </p>
     </section>
 
