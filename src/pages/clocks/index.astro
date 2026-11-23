@@ -3,14 +3,16 @@ import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
 import WorldClocksBrowser from "../../components/clocks/WorldClocksBrowser.tsx";
 import { placePath, placeTitle, places } from "../../lib/seo/places";
-import cities from "../../../public/data/cities.json";
 import countries from "../../../public/data/countries.json";
+import coverageStats from "../../../public/data/coverage-stats.json";
 
 // Build-time summary of the same files the interactive index fetches, so the page has useful
 // content before (or without) that client-side load.
+// Use coverage-stats.json for counts — do not import cities.json here. Pulling that 2.6MB
+// file into Vite/Rolldown has killed the shared-host build ("Killed" / out-of-memory).
 const numberFormat = new Intl.NumberFormat("en-US");
-const cityCount = numberFormat.format(cities.length);
-const countryCount = numberFormat.format(countries.length);
+const cityCount = numberFormat.format(coverageStats.cities);
+const countryCount = numberFormat.format(coverageStats.countries);
 const multiZoneCountries = countries
   .filter((country) => country.multiZone && country.cityCount > 0)
   .sort((a, b) => b.timezones.length - a.timezones.length || a.name.localeCompare(b.name));

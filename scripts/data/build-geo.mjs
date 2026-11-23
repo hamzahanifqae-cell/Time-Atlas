@@ -276,9 +276,14 @@ async function main() {
     path.join(GENERATED_DIR, "timezones.json"),
     JSON.stringify([...allZones].sort()),
   );
+  await writeFile(
+    path.join(GENERATED_DIR, "coverage-stats.json"),
+    `${JSON.stringify({ cities: cityOutput.length, countries: countries.length })}\n`,
+  );
 
   console.log(`cities.json: ${cityOutput.length} cities (from ${allCities.length} raw rows)`);
   console.log(`countries.json: ${countries.length} countries`);
+  console.log(`coverage-stats.json: ${cityOutput.length} cities, ${countries.length} countries`);
   console.log(`timezones.json: ${allZones.size} IANA timezones`);
   const multiZoneCount = countries.filter((c) => c.multiZone).length;
   console.log(`multi-timezone countries: ${multiZoneCount}`);
