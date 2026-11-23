@@ -3,7 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import Breadcrumbs from "../components/seo/Breadcrumbs.astro";
 import PrivacyChoices from "../components/seo/PrivacyChoices.astro";
 import { siteConfig } from "../config/site";
-const lastUpdated = "2026-11-18";
+import { PUBLISHER_EMAIL, PUBLISHER_NAME } from "../lib/seo/publisher";
+const lastUpdated = "2026-11-23";
 ---
 
 <Layout title="Privacy policy" description="How TimeAtlas handles local preferences, Google Analytics, Google AdSense cookies, and hosting request logs.">
@@ -100,13 +101,9 @@ const lastUpdated = "2026-11-18";
       <p class="mt-2 text-paper-300">
         The web server that delivers those files may still keep ordinary request logs for
         operations and security, as most hosts do. This repository does not set or publish the
-        host's log fields or retention period.
-        {
-          siteConfig.operatorName
-            ? ` Questions about the host used by ${siteConfig.operatorName} belong with the publisher.`
-            : " Questions about the host belong with the publisher."
-        }
-        {" "}Use the <a href="/contact/" class="underline hover:text-paper-100">contact page</a>.
+        host's log fields or retention period. Questions about the host used by {PUBLISHER_NAME}
+        belong with the publisher. Email{" "}
+        <a href={`mailto:${PUBLISHER_EMAIL}`} class="underline hover:text-paper-100">{PUBLISHER_EMAIL}</a>.
       </p>
     </section>
 
@@ -135,16 +132,10 @@ const lastUpdated = "2026-11-18";
     <section class="mt-8">
       <h2 class="text-xl font-semibold text-paper-100">Questions</h2>
       <p class="mt-2 text-paper-300">
-        The publisher is named on the <a href="/contact/" class="underline hover:text-paper-100">contact page</a>.
-        {
-          siteConfig.contactEmail && (
-            <>
-              {" "}Email{" "}
-              <a href={`mailto:${siteConfig.contactEmail}`} class="underline hover:text-paper-100">{siteConfig.contactEmail}</a>
-              {" "}with questions about this page.
-            </>
-          )
-        }
+        {PUBLISHER_NAME} publishes TimeAtlas. Email{" "}
+        <a href={`mailto:${PUBLISHER_EMAIL}`} class="underline hover:text-paper-100">{PUBLISHER_EMAIL}</a>
+        {" "}with questions about this page. The
+        <a href="/contact/" class="underline hover:text-paper-100">contact page</a> lists the same address.
       </p>
     </section>
   </article>

@@ -81,8 +81,8 @@ See `.env.example` for the authoritative list and validation rules (also enforce
 | Variable | Required for `npm run build`? | Notes |
 |---|---|---|
 | `PUBLIC_SITE_ORIGIN` | Yes | Bare `https://` origin, no path/query/fragment/credentials, not localhost/an IP/a reserved example-test domain. |
-| `PUBLIC_OPERATOR_NAME` | Yes | Shown on About/Privacy/Terms. |
-| `PUBLIC_CONTACT_EMAIL` | Yes | Shown on Contact/Privacy. Only syntax is validated — this does not confirm the address can receive mail. |
+| `PUBLIC_OPERATOR_NAME` | Yes | Validated only. Pages name the publisher from `src/lib/seo/publisher.ts`. |
+| `PUBLIC_CONTACT_EMAIL` | Yes | Validated only (syntax). About/Contact/Privacy/Terms show the address from `src/lib/seo/publisher.ts`. |
 | `PUBLIC_STAGING` | No (default `false`) | See above. |
 | `PUBLIC_GOOGLE_SITE_VERIFICATION` | No | Search Console HTML-tag token. Rendered as `google-site-verification`. Public, not a secret. Rebuild after setting it. |
 | `PUBLIC_ADSENSE_CLIENT_ID` | No | AdSense publisher ID. Omit to ship with no ad script. |

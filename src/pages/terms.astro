@@ -1,8 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Breadcrumbs from "../components/seo/Breadcrumbs.astro";
-import { siteConfig } from "../config/site";
-const lastUpdated = "2026-10-21";
+import { PUBLISHER_EMAIL, PUBLISHER_NAME } from "../lib/seo/publisher";
+const lastUpdated = "2026-11-23";
 ---
 
 <Layout title="Terms of use" description="Terms of use for TimeAtlas, including the limits of what its clocks, search, and globe can promise.">
@@ -33,7 +33,7 @@ const lastUpdated = "2026-10-21";
         astronomical calculation of actual sunrise or sunset. See the{" "}
         <a href="/guide/" class="underline hover:text-paper-100">guide</a> for the full detail.
         TimeAtlas is provided "as is," without warranty of accuracy, and{" "}
-        {siteConfig.operatorName || "its operator"} disclaims liability for decisions made in
+        {PUBLISHER_NAME}, its publisher, disclaims liability for decisions made in
         reliance on it to the fullest extent permitted by law.
       </p>
     </section>
@@ -65,13 +65,13 @@ const lastUpdated = "2026-10-21";
       </p>
     </section>
 
-    {siteConfig.contactEmail && (
-      <section class="mt-8">
-        <h2 class="text-xl font-semibold text-paper-100">Questions</h2>
-        <p class="mt-2 text-paper-300">
-          Email <a href={`mailto:${siteConfig.contactEmail}`} class="underline hover:text-paper-100">{siteConfig.contactEmail}</a> with questions about this page.
-        </p>
-      </section>
-    )}
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">Questions</h2>
+      <p class="mt-2 text-paper-300">
+        {PUBLISHER_NAME} publishes TimeAtlas. Email{" "}
+        <a href={`mailto:${PUBLISHER_EMAIL}`} class="underline hover:text-paper-100">{PUBLISHER_EMAIL}</a>
+        {" "}with questions about this page.
+      </p>
+    </section>
   </article>
 </Layout>

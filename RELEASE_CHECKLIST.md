@@ -7,10 +7,11 @@ until they're real:
 
 1. **A real production domain** — set as `PUBLIC_SITE_ORIGIN` (bare `https://` origin).
    TimeAtlas does not register domains or set up DNS/HTTPS for you.
-2. **Your/your organization's real name** — `PUBLIC_OPERATOR_NAME`. Shown on About, Privacy,
-   and Terms.
-3. **A real, monitored contact email address** — `PUBLIC_CONTACT_EMAIL`. Shown on Contact and
-   Privacy. Nothing confirms it can actually receive mail — test it yourself.
+2. **Your/your organization's real name** — `PUBLIC_OPERATOR_NAME`. Validated by the build. The
+   pages print the name from `src/lib/seo/publisher.ts`.
+3. **A real, monitored contact email address** — `PUBLIC_CONTACT_EMAIL`. Validated by the build. The
+   pages print the address from `src/lib/seo/publisher.ts`. Nothing confirms it can actually
+   receive mail — test it yourself.
 4. **Legal review of `/privacy` and `/terms`.** Both are clearly marked in-page as drafts, not
    reviewed by a lawyer on your behalf. Have them reviewed (and the "Draft" banner removed,
    and the last-updated dates in `src/pages/privacy.astro` / `src/pages/terms.astro` updated)

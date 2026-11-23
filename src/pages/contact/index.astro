@@ -4,7 +4,7 @@ import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
 import { PUBLISHER_EMAIL, PUBLISHER_NAME } from "../../lib/seo/publisher";
 
 const title = "Contact";
-const description = `Contact ${PUBLISHER_NAME}, the publisher of TimeAtlas, at ${PUBLISHER_EMAIL}.`;
+const description = `Contact ${PUBLISHER_NAME}, the publisher of TimeAtlas, at ${PUBLISHER_EMAIL} to report a time-zone correction or ask a privacy or site question.`;
 ---
 
 <Layout title={title} description={description}>
@@ -18,9 +18,32 @@ const description = `Contact ${PUBLISHER_NAME}, the publisher of TimeAtlas, at $
       Email{" "}
       <a href={`mailto:${PUBLISHER_EMAIL}`} class="underline hover:text-paper-100">{PUBLISHER_EMAIL}</a>.
     </p>
-    <p class="mt-3 text-paper-300">
-      How the site handles cookies and ads is on the
-      <a href="/privacy/" class="underline hover:text-paper-100">privacy policy</a>.
-    </p>
+
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold text-paper-100">Reasons to write</h2>
+      <ul class="mt-2 list-disc space-y-2 pl-5 text-paper-300">
+        <li>
+          A time-zone correction. If a city shows the wrong zone, offset, or daylight-saving
+          status, name the city and country, the date you checked, and what you expected. The
+          <a href="/guide/#accuracy" class="underline hover:text-paper-100">accuracy notes</a>
+          explain where clock times and zone rules come from.
+        </li>
+        <li>
+          A missing or mislabeled city. The
+          <a href="/guide/#coverage" class="underline hover:text-paper-100">coverage notes</a>
+          say which places the search includes.
+        </li>
+        <li>
+          A privacy question, including cookies, ads, and analytics. The
+          <a href="/privacy/" class="underline hover:text-paper-100">privacy policy</a>
+          describes what the site loads and stores.
+        </li>
+        <li>
+          A question about the <a href="/terms/" class="underline hover:text-paper-100">terms of use</a>,
+          the <a href="/about/#data-sources" class="underline hover:text-paper-100">data sources</a>,
+          or anything else about the site.
+        </li>
+      </ul>
+    </section>
   </article>
 </Layout>
